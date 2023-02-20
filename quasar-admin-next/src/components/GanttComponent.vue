@@ -14,7 +14,7 @@ export default {
 
   gantt.init(this.$refs.gantt_here);
 
-  gantt.load("http://localhost:8083/api/auth/data");
+  gantt.load("http://localhost:8083/auth/data");
     //const dp = new gantt.dataProcessor("http://localhost:8083/api/test/data");
    // dp.init(gantt);
    // dp.setTransactionMode("REST");
