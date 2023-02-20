@@ -10,7 +10,7 @@ export default {
   mounted: function () {
 
 	//gantt.config.date_format = "%Y-%m-%d";
-  gantt.config.date_format = "%Y-%m-%d %H:%i:%s";
+  gantt.config.date_format = "%Y-%m-%d";
 
   gantt.init(this.$refs.gantt_here);
 

@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +28,7 @@ import com.bezkoder.springjwt.models.Ganttasks;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/auth")
 public class GanttController {
    @Autowired
    GantLinksRepository gantlinksrepo ; 
@@ -36,11 +37,11 @@ public class GanttController {
    GanttasksRepository ganttasksrepo ; 
 
 
-     @GetMapping("/data")
+     @GetMapping("auth/data")
      public ResponseEntity<Map<String, Object>> getData() {
        try {
          List<Ganttasks> tasks = ganttasksrepo.findAll();
-         List<Gantlinks> links = gantlinksrepo.findAll();
+           val links = gantlinksrepo.findAll();
  
          Map<String, Object> response = new HashMap<>();
          response.put("data", tasks);
