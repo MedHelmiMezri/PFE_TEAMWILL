@@ -1,14 +1,12 @@
 package com.bezkoder.springjwt.models;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -43,7 +41,10 @@ public class Project {
 	
 	private int duration ; 
 	
-	private EProjectStatus projectSatus  = EProjectStatus.OnGoing ; 
+	private EProjectStatus projectSatus  = EProjectStatus.OnGoing ;
+
+	@OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Module> modules = new ArrayList<>();
 	
 	
 }
