@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bezkoder.springjwt.models.Project;
-import com.bezkoder.springjwt.security.services.ProjectService;
+import com.bezkoder.springjwt.services.ProjectService;
 
 
 
