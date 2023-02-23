@@ -1,6 +1,7 @@
 package com.bezkoder.springjwt.controllers;
 
 import com.bezkoder.springjwt.models.Module;
+import com.bezkoder.springjwt.models.Project;
 import com.bezkoder.springjwt.services.ModuleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,10 +17,22 @@ public class ModuleController {
 
     @Autowired
     ModuleService moduleService ;
+    @CrossOrigin
     @PostMapping("/add-module/{projectId}")
-    public ResponseEntity<List<Module>> addModulesToProject(@PathVariable int projectId, @RequestBody List<Module> modules) {
-        List<Module> savedModules = moduleService.addModulesToProject(projectId, modules);
-        return ResponseEntity.ok(savedModules);
+    public ResponseEntity<String> addModulesToProject(@PathVariable int projectId, @RequestBody List<Module> modules) {
+        moduleService.addModulesToProject(projectId, modules);
+        return ResponseEntity.ok("Modules added to project successfully.");
     }
+
+
+    @CrossOrigin
+    @GetMapping("/list-modules")
+    @ResponseBody
+    public List<Module> listAllModules() {
+        List<Module> modules = moduleService.listAllModules();
+        return modules ;
+
+    }
+
 
 }

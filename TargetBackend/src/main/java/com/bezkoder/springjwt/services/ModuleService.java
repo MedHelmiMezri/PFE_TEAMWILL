@@ -35,6 +35,11 @@ public class ModuleService {
         }
     }
 
+    public List<Module> listAllModules() {
+        return moduleRepository.findAll();
+    }
+
+
 
 
 

@@ -3,6 +3,7 @@ package com.bezkoder.springjwt.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,8 +40,10 @@ public class ProjectController {
 	@CrossOrigin
 	@GetMapping("/list-projects")
 	@ResponseBody
-	List<Project> listedProjects(){
-		return projectservice.listAllProjects() ; 
+	public List<Project> listAllProjects() {
+		List<Project> projects = projectservice.listAllProjects();
+		return projects ;
+
 	}
 	
 	@CrossOrigin
@@ -56,9 +59,8 @@ public class ProjectController {
 	public void deleteProject(@PathVariable("id") int id) {
 	    projectservice.deleteProject(id);
 	}
-	
-	
-	
+
+
 	
 	
 	

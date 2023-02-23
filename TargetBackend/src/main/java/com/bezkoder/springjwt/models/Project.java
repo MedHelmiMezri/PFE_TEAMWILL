@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -42,7 +43,7 @@ public class Project {
 	private int duration ; 
 	
 	private EProjectStatus projectSatus  = EProjectStatus.OnGoing ;
-
+	@JsonManagedReference
 	@OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Module> modules = new ArrayList<>();
 	

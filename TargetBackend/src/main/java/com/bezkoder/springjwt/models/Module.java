@@ -6,6 +6,7 @@ import java.util.Date;
 import javax.persistence.*;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,7 +29,7 @@ public class Module {
 	private String moduleTtile ; 
 	
 	private String description;
-
+	@JsonBackReference
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Project project;
 
