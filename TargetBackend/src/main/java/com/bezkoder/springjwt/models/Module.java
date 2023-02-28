@@ -1,12 +1,15 @@
 package com.bezkoder.springjwt.models;
 
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.*;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,5 +35,10 @@ public class Module {
 	@JsonBackReference
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Project project;
+
+	@JsonManagedReference
+	@OneToMany(mappedBy = "module", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Task>  tasks = new ArrayList<>();
+
 
 }

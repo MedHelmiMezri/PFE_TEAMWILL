@@ -2,14 +2,9 @@ package com.bezkoder.springjwt.models;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.AllArgsConstructor;
@@ -44,7 +39,12 @@ public class Task {
 	
 	private EPriorityTask priorityTask  ; 
 	
-	private EtaskStatus taskStatus = EtaskStatus.Pending ; 
-	
+	private EtaskStatus taskStatus = EtaskStatus.Pending ;
+
+	@JsonBackReference
+	@ManyToOne(fetch = FetchType.LAZY)
+	private Module module;
+
+
 
 }
