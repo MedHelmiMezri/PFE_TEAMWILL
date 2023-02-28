@@ -28,7 +28,7 @@ import com.bezkoder.springjwt.models.Ganttasks;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/auth/api/")
 public class GanttController {
    @Autowired
    GantLinksRepository gantlinksrepo ; 

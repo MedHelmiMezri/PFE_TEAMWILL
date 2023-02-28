@@ -9,7 +9,7 @@
       
       <q-card>
       
-      <q-card-section class="q-mt-sm">
+      <q-card-section class="q-mt-sm bg-light-blue">
         <q-btn  label="Click me" class="float-right text-capitalize text-blue shadow-3" icon="settings">
         <q-menu>
           <q-list dense style="min-width: 100px">
@@ -57,7 +57,7 @@
             </q-item>
             <q-separator />
             <q-item clickable v-close-popup>
-              <q-item-section>Quit</q-item-section>
+              <q-item-section>logout</q-item-section>
             </q-item>
           </q-list>
         </q-menu>
@@ -65,7 +65,7 @@
 
 
         <div class="text-h5 text-weight-bolder ">
-
+          <q-icon name="style" size="1em" class="mdi-size-l" />
           Project File 
         </div>
       </q-card-section>

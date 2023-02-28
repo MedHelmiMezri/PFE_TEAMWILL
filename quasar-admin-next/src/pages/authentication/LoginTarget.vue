@@ -1,58 +1,55 @@
 <template>
-<div>
- <nav>
-  <input type="checkbox" id="check">
-   <label for="check" class="checkbtn">
-     &#8801;
-   </label>
-  <label class="logo"> TARGET</label>
- <ul>
-    <li><a  href="#">Home</a></li>
-    <li><a class="active" href="#">Sign In</a></li>
-    <li><a href="#">Sign Up</a></li>
-</ul>
-</nav>
-</div>
-
-  <div class="col-md-12">
-    <div class="card card-container">
-
-
-      <h4>
-      Login to Target :
-      </h4>
-
-      <q-form class="column" @submit.prevent="handleLogin">
-      <q-input v-model="user.username" filled name="username" label="Username" type="text" >
-      </q-input>
-            <br/>
-
-      <q-input v-model="user.password"  filled name="password" label="password" type="password">
-      </q-input>
-      <br/>
-      <q-btn label="Sign In" type="submit" color="blue">
-       <q-spinner
-       v-show="loading"
-       color="white"
-        size="1em"
-      />
-      </q-btn>
-
-      </q-form>
-      <div>
-
+  <div>
+   <nav>
+    <input type="checkbox" id="check">
+     <label for="check" class="checkbtn">
+       &#8801;
+     </label>
+    <label class="logo"> TARGET</label>
+   <ul>
+      <li><a  href="#">Home</a></li>
+      <li><a class="active" href="#">Sign In</a></li>
+      <li><a href="#">Sign Up</a></li>
+  </ul>
+  </nav>
+  </div>
+  
+    <div class="col-md-12">
+      <div class="card card-container">
+        <q-form class="column" @submit.prevent="handleLogin">
+        <q-input v-model="user.username" filled name="username" label="Username" type="text" >
+        </q-input>
+              <br/>
+  
+        <q-input v-model="user.password"  filled name="password" label="password" type="password">
+        </q-input>
+        <br/>
+        <q-btn label="Sign In" type="submit" color="blue">
+         <q-spinner
+         v-show="loading"
+         color="white"
+          size="1em"
+        />
+        </q-btn>
+  
+        </q-form>
+        <div>
+  
+        </div>
       </div>
     </div>
-  </div>
-</template>
+  </template>
 
 <script>
-import InputText from 'primevue/inputtext';
+//import InputText from 'primevue/inputtext';
 
 import User from '../../models/user';
 
+
+
 export default {
   name: 'Login',
+  
   data() {
     return {
       user: new User('', ''),
@@ -60,7 +57,9 @@ export default {
       message: ''
     };
   },
+ 
   computed: {
+   
     loggedIn() {
       return this.$store.state.auth.status.loggedIn;
     }
@@ -70,8 +69,9 @@ export default {
       this.$router.push('/testgantt');
     }
   },
-  methods: {
+  methods : {
     handleLogin() {
+      console.log("auth test running")
       this.loading = true;
 
       if(this.user.username && this.user.password) {
@@ -87,9 +87,13 @@ export default {
           );
         }
 
-    }
+    } , 
   }
-};
+  
+    
+   
+  }
+;
 </script>
 
 <style>

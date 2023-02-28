@@ -11,7 +11,7 @@
           aria-label="Menu"
         />
         <q-toolbar-title>
-          TEAMWILL
+          TARGET
         </q-toolbar-title>
 
         <q-space/>
@@ -20,29 +20,60 @@
                  @click="$q.fullscreen.toggle()"
                  v-if="$q.screen.gt.sm">
           </q-btn>
-          <q-btn round dense flat color="white" icon="fab fa-github" type="a" href="https://github.com/pratik227/quasar-admin" target="_blank">
-          </q-btn>
-          <q-btn round dense flat icon="fas fa-heart" style="color:#9d4182 !important;" type="a" href="https://github.com/sponsors/pratik227" target="_blank">
-          </q-btn>
-          <q-btn round dense flat color="white" icon="notifications">
-            <q-badge color="red" text-color="white" floating>
-              5
-            </q-badge>
-            <q-menu
-            >
-              <q-list style="min-width: 100px">
-                <messages></messages>
-                <q-card class="text-center no-shadow no-border">
-                  <q-btn label="View All" style="max-width: 120px !important;" flat dense
-                         class="text-indigo-8"></q-btn>
-                </q-card>
-              </q-list>
-            </q-menu>
-          </q-btn>
-          <q-btn round flat>
-            <q-avatar size="26px">
-              <img src="https://cdn.quasar.dev/img/boy-avatar.png">
-            </q-avatar>
+          
+          <q-btn >
+            <div v-html="avatar" style="width:40px">
+            </div>
+            <q-menu>
+          <q-list dense style="min-width: 100px">
+            <q-item clickable v-close-popup>
+              <q-item-section>Open...</q-item-section>
+            </q-item>
+            <q-item clickable v-close-popup>
+              <q-item-section>New</q-item-section>
+            </q-item>
+            <q-separator />
+            <q-item clickable>
+              <q-item-section>Preferences</q-item-section>
+              <q-item-section side>
+                <q-icon name="keyboard_arrow_right" />
+              </q-item-section>
+
+              <q-menu anchor="top end" self="top start">
+                <q-list>
+                  <q-item
+                    v-for="n in 3"
+                    :key="n"
+                    dense
+                    clickable
+                  >
+                    <q-item-section>Submenu Label</q-item-section>
+                    <q-item-section side>
+                      <q-icon name="keyboard_arrow_right" />
+                    </q-item-section>
+                    <q-menu auto-close anchor="top end" self="top start">
+                      <q-list>
+                        <q-item
+                          v-for="n in 3"
+                          :key="n"
+                          dense
+                          clickable
+                        >
+                          <q-item-section>3rd level Label</q-item-section>
+                        </q-item>
+                      </q-list>
+                    </q-menu>
+                  </q-item>
+                </q-list>
+              </q-menu>
+
+            </q-item>
+            <q-separator />
+            <q-item v-on:click="logOut"  clickable v-close-popup>
+              <q-item-section>Logout</q-item-section>
+            </q-item>
+          </q-list>
+        </q-menu>
           </q-btn>
         </div>
       </q-toolbar>
@@ -361,6 +392,17 @@ export default defineComponent({
     EssentialLink,
     Messages
   },
+  computed: {
+    avatar() {
+     
+      let str =this.$store.state.auth.user.username ;
+      let cleanedStr = str.replace(/"/g, '');
+      const seed = cleanedStr;
+      const svg = this.$dicebear.generateAvatar(seed);
+      console.log(cleanedStr);
+  
+      return svg;
+    }},
 
   setup () {
     const leftDrawerOpen = ref(false)
@@ -371,6 +413,12 @@ export default defineComponent({
         leftDrawerOpen.value = !leftDrawerOpen.value
       } ,
        tab: ref('mails')
+    }
+  },
+  methods :{
+    logOut() {
+      this.$store.dispatch('auth/logout');
+      this.$router.push('/login');
     }
   }
 })

@@ -29,13 +29,6 @@ import com.bezkoder.springjwt.services.UserDetailsServiceImpl;
 public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
   @Autowired
   UserDetailsServiceImpl userDetailsService;
-  private static final String[] AUTH_WHITE_LIST = {
-          "/v3/api-docs/**",
-          "/swagger-ui.html",
-          "/v2/api-docs/**",
-          "/swagger-resources/**" ,
-          "/target/**"
-  };
 
   @Autowired
   private AuthEntryPointJwt unauthorizedHandler;
@@ -93,7 +86,7 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
     http.cors().and().csrf().disable()
         .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-        .authorizeRequests().antMatchers(AUTH_WHITE_LIST).permitAll()
+        .authorizeRequests().antMatchers("/api/auth/**").permitAll()
         .antMatchers("/api/test/**").permitAll()
         .anyRequest().authenticated();
     

@@ -24,7 +24,8 @@ module.exports = configure(function (/* ctx */) {
       'axios' ,
       'dhtmlx-gantt',
       'apexcharts' ,
-      'primevue'
+      'primevue' , 
+      'dicebear'
 
     ],
 

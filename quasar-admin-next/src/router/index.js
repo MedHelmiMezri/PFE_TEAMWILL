@@ -26,18 +26,18 @@ export default route(function (/* { store, ssrContext } */) {
     history: createHistory(process.env.MODE === 'ssr' ? void 0 : process.env.VUE_ROUTER_BASE)
   })
 
- // Router.beforeEach((to, from, next) => {
- // const publicPages = ['/login','/register'];
- // const authRequired = !publicPages.includes(to.path);
-  //const loggedIn = localStorage.getItem('user');
+ Router.beforeEach((to, from, next) => {
+const publicPages = ['/login','/register'];
+  const authRequired = !publicPages.includes(to.path);
+  const loggedIn = localStorage.getItem('user');
 
     //trying to access a restricted page + not logged in
   //   // redirect to login page
-   //if (authRequired && !loggedIn) {
-     //next('/login');
-  //} else {
-   //next();
-  //} });
+   if (authRequired && !loggedIn) {
+     next('/login');
+ } else {
+  next();
+ } });
 
   return Router
 })
