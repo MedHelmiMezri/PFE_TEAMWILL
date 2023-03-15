@@ -22,9 +22,12 @@
     "core-js": "^3.6.5",
     "dhtmlx-gantt": "^7.1.13",
     "dicebear": "^5.3.4",
+    "net": "^1.0.2",
     "primeicons": "^6.0.1",
     "primevue": "^3.23.0",
     "quasar": "^2.0.0",
+    "sockjs-client": "^1.6.1",
+    "stompjs": "^2.3.3",
     "vue": "^3.2.45",
     "vue-i18n": "^9.0.0-beta.0",
     "vue-router": "^4.1.6",
@@ -34,6 +37,7 @@
   "devDependencies": {
     "@quasar/app-webpack": "^3.5.3",
     "@quasar/quasar-app-extension-qcalendar": "^4.0.0-beta.15",
+    "naive-ui": "^2.34.3",
     "quasar-app-extension-qhierarchy": "^1.0.0-alpha.1"
   },
   "browserslist": [

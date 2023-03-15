@@ -72,20 +72,27 @@
       <q-separator></q-separator>
       <q-list >
         <q-item>
-          <q-item-section>
+          <q-item-section v-if="project">
             <div class="row">
                    <div class="col">
                     <div class="text-weight-bolder  text-h6">
-                        Project Title : 
+                        Project Title :
                     </div>
-                    this is a test message
+                    <div>
+                      {{ project.projectTitle }}
+
+                    </div>
                     </div>
             <div class="col">
                     <div class="text-weight-bolder text-h6">
                         Budget : 
                     </div>
-                    5200
-                       
+                    <div>
+                      {{ project.budget }}
+
+                    </div>
+              
+                      {{ project.moudles }}
             </div>
             </div>
           </q-item-section>
@@ -99,13 +106,17 @@
                     <div class="text-weight-bolder text-h6">
                         Start Date : 
                     </div>
-                    12-12-2012
+                    <div>
+                      {{ project.startDate }}
+                    </div>
                     </div>
             <div class="col">
                     <div class="text-weight-bolder text-h6">
                         Duration : 
                     </div>
-                    500
+                   <div>
+                    {{ project.duration }}
+                   </div>
                        
             </div>
             </div>
@@ -116,8 +127,10 @@
                 <div class="text-weight-bolder text-h6">
                         Description : 
                     </div>
-                    <p>this is a test message this is a test message this is a test message this is a test message this is a test message this is a test message this is a test message this is a test message this is a test message this is a test message this is a test message this is a test message this is a test message this is a test message this is a test message
-                      this is a test message this is a test message this is a test message this is a test message this is a test message </p>
+                    <div>
+                      <p>{{ project.description }}</p>
+                    </div>
+                   
               </div>
               </div>
               
@@ -149,10 +162,17 @@
 import {defineComponent, defineAsyncComponent} from 'vue';
 //import {ref} from 'vue';
 
+import ProjectService from "../../services/ProjectService";
+
 
 export default defineComponent({
     components: {
       TableActions: defineAsyncComponent(() => import('components/tables/TableActions')),
+  },
+  data() {
+    return {
+      project: {},
+    };
   },
     setup () {
     return {
@@ -185,6 +205,21 @@ export default defineComponent({
         }
       ]
     }
+  } ,
+  async created(){
+    const projectId = this.$route.params.id;
+    try {
+      const response = await ProjectService.get(projectId) ; 
+
+
+      
+      this.project =response.data;
+      console.log(response.data) ;
+    } catch (error) {
+      console.error(error);
+    }
   }
 })
+
+
 </script>

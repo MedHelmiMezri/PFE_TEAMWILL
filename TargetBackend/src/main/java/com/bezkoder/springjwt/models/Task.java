@@ -45,6 +45,10 @@ public class Task {
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Module module;
 
+	@JsonBackReference
+	@ManyToOne(fetch = FetchType.LAZY)
+	private User user;
+
 
 
 }

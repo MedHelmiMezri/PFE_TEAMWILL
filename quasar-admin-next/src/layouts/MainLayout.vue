@@ -21,8 +21,8 @@
                  v-if="$q.screen.gt.sm">
           </q-btn>
           
-          <q-btn >
-            <div v-html="avatar" style="width:40px">
+          <q-btn round  padding="none">
+            <div v-html="avatar" style="width:50px">
             </div>
             <q-menu>
           <q-list dense style="min-width: 100px">

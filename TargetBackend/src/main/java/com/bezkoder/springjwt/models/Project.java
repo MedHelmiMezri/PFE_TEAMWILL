@@ -46,6 +46,10 @@ public class Project {
 	@JsonManagedReference
 	@OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Module> modules = new ArrayList<>();
+
+	@JsonManagedReference
+	@OneToMany(mappedBy = "affectedProject", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<User> members = new ArrayList<>();
 	
 	
 }

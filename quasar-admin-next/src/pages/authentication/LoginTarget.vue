@@ -34,9 +34,13 @@
   
         </q-form>
         <div>
-  
+     
         </div>
       </div>
+      <center>
+        <img src="../../../src/assets/teamb.png"  style ="height:300px" alt="Italian Trulli">
+      </center>
+
     </div>
   </template>
 

@@ -8,16 +8,16 @@ export default {
 
 
   mounted: function () {
-
-	//gantt.config.date_format = "%Y-%m-%d";
-  gantt.config.date_format = "%Y-%m-%d";
+    
+  gantt.config.date_format = "%Y-%m-%d %H:%i:%s";
 
   gantt.init(this.$refs.gantt_here);
-
-  gantt.load("http://localhost:8083/auth/data");
-    //const dp = new gantt.dataProcessor("http://localhost:8083/api/test/data");
-   // dp.init(gantt);
-   // dp.setTransactionMode("REST");
+  
+  gantt.load("http://localhost:1337/data");
+  const dp = new gantt.dataProcessor("http://localhost:1337/data");
+  console.log(gantt) ; 
+  dp.init(gantt);
+  dp.setTransactionMode("REST");
   }
 }
 </script>

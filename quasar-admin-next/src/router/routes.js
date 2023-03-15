@@ -25,9 +25,11 @@ const routes = [
       {path: '/pageone', component: () => import('pages/PageOne.vue')},
       {path: '/testgantt', component: () => import('pages/GanttPageTest.vue')},
       {path: '/addproject', component: () => import('pages/AddProject.vue')} ,
-      {path: '/projectslist', component: () => import('pages/ProjectsList.vue')} ,
+      //{path: '/projectslist', component: () => import('pages/ProjectsList.vue')} ,
       {path: '/projectadd', component: () => import('pages/projects/ProjectAdd.vue')} ,
-      {path: '/projectdetails', component: () => import('pages/projects/ProjectDetails.vue')} ,
+      {path: '/projectdetails/:id', component: () => import('pages/projects/ProjectDetails.vue')} ,
+      {path: '/projectlist', component: () => import('pages/projects/ProjectList.vue')} ,
+
       {path: '/addmodule', component: () => import('pages/modules/AddModule.vue')} ,
 
 

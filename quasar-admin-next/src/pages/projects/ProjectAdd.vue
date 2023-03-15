@@ -1,86 +1,147 @@
 <template>
-  <q-page class="q-pa-sm bg-white">
-    <div class="row q-col-gutter-sm">
-      <div>
-    <q-card>
-      <q-card-section>
-        <div class="text-h6 text-indigo-8">
-          Add new project
-        </div>
-        <div class="text-subtitle2">
-        </div>
-      </q-card-section>
-
-      <q-separator></q-separator>
-      <q-card-section class="q-pa-none">
-      <div class="row">
-              <div class="col-6">
-                <q-item>
-                      <q-input filled v-model="text" label="Project Name"  class="full-width"/>
-                </q-item>
-              </div>
-              <div class="col-6">
-                <q-item>
-                      <q-input filled v-model="text" label="Budget"  class="full-width"/>
-
-                  </q-item>
-              </div>
-               <div class="col-12">
-                <q-item>
-                                        <q-input filled v-model="text" label="Description"  class="full-width"/>
-
-                </q-item>
-              </div>
-              <div class="col-6">
-                <q-item>
-                        <q-input v-model="time" filled type="date" hint="Native date" />
-
-                </q-item>
-              </div>
-
-              <div class="col-6">
-                <q-item>
-                  <q-input dense outlined class="full-width" label="City *"/>
-                </q-item>
-              </div>
-              <div class="col-6">
-                <q-item>
-                  <q-input dense outlined class="full-width" label="State"/>
-                </q-item>
-              </div>
-
-
-            </div>
-      </q-card-section>
-      <q-card-section>
-
-
-      <q-btn class = "btn1" color="primary" label="Submit" />
-      <q-btn  class ="btn2" color="secondary" label="Add new Project " />
-      </q-card-section>
-    </q-card>
+  <div class="submit-form">
+    <div v-if="!submitted">
+      <div class="form-group">
+        <label for="projectTitle">Project Title</label>
+        <input
+          type="text"
+          class="form-control"
+          id="projectTtile"
+          required
+          v-model="project.projectTitle"
+          name="projectTtile"
+        />
       </div>
+      <div class="form-group">
+        <label for="Budget">Budget</label>
+        <input
+          type="text"
+          class="form-control"
+          id="budget"
+          required
+          v-model="project.budget"
+          name="budget"
+        />
+      </div>
+      <div class="form-group">
+        <label for="startDate">startDate</label>
+        <input
+          type="date"
+          class="form-control"
+          id="startDate"
+          required
+          v-model="project.startDate"
+          name="startDate"
+        />
+      </div>
+      
+      <div class="form-group">
+        <label for="description">Description</label>
+        <input
+          class="form-control"
+          id="description"
+          required
+          v-model="project.description"
+          name="description"
+        />
+      </div>
+     
+      <div class="form-group">
+        <label for="duration">Duration</label>
+        <input
+          class="form-control"
+          id="duration"
+          required
+          v-model="project.duration"
+          name="duratio"
+        />
+      </div>
+
+      <button @click="saveProject" class="btn btn-success">Submit</button>
     </div>
 
-  </q-page>
+    <div v-else>
+      <h4>You submitted successfully!</h4>
+      <button class="btn btn-success" @click="newTutorial">Add</button>
+    </div>
+    <ul>
+      <li v-for="notification in notifications" :key="notification.id">
+        {{ notification.projectTitle }}
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script>
-import {defineComponent} from 'vue';
-//import {ref} from 'vue';
+import ProjectService from "../../services/ProjectService";
+import SockJS from 'sockjs-client';
+import Stomp from 'stompjs';
 
+export default {
+  name: "add-project",
+  data() {
+    return {
+      project: {
+        
+        projectTitle: "",
+        budget :0 , 
+        startDate : "",
+        description: "",
+        duration : 0 
+        
+      },
+      submitted: false ,
+      notifications: []
+    };
+  }, 
+  mounted() {
+      this.connect() ;
+  } ,
+  methods: {
+    saveProject() {
+      var data = {
+        projectTitle: this.project.projectTitle ,
+        budget :this.project.budget ,
+        startDate :this.project.startDate,
+        description: this.project.description,
+        duration : this.project.duration, 
+       
+      };
 
-export default defineComponent({
-  
+         ProjectService.create(data)
+        .then(response => {
+          this.project.id = response.data.id;
+          console.log(response.data);
+          this.submitted = true;
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    },
+    
+    newTutorial() {
+      this.submitted = false;
+      this.project = {};
+    }, 
+    connect() {
+      const socket = new SockJS('http://localhost:8083/websocket');
+      const stompClient = Stomp.over(socket);
 
-})
+      stompClient.connect({}, () => {
+        stompClient.subscribe('/topic/notifications', (message) => {
+          const notification = JSON.parse(message.body);
+          console.log(notification) ;
+          this.notifications.push(notification);
+        });
+      });
+    },
+  }
+};
 </script>
 
-<style scoped>
-.btn1{
-   margin-right: 20px;
-}
-.btn2{
-   margin-right: 20px;
+<style>
+.submit-form {
+  max-width: 300px;
+  margin: auto;
 }
 </style>

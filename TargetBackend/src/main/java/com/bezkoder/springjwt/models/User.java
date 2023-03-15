@@ -1,6 +1,14 @@
 package com.bezkoder.springjwt.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -19,6 +27,9 @@ public class User {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  private String firstname ;
+
+  private String lastname ;
   @NotBlank
   @Size(max = 20)
   private String username;
@@ -38,6 +49,16 @@ public class User {
         inverseJoinColumns = @JoinColumn(name = "role_id"))
   private Set<Role> roles = new HashSet<>();
 
+  @JsonBackReference
+  @ManyToOne(fetch = FetchType.LAZY)
+  private Project affectedProject;
+
+  @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+  private List<Task> tasks = new ArrayList<>();
+
+
+
+
   public User() {
   }
 
@@ -46,13 +67,40 @@ public class User {
     this.email = email;
     this.password = password;
   }
-
+  public User(Long id, String firstname, String lastname, String username, String email, String password, Set<Role> roles, Project affectedProject
+  ,List<Task>tasks) {
+    this.id = id;
+    this.firstname = firstname;
+    this.lastname = lastname;
+    this.username = username;
+    this.email = email;
+    this.password = password;
+    this.roles = roles;
+    this.affectedProject = affectedProject;
+    this.tasks=tasks ;
+  }
   public Long getId() {
     return id;
   }
 
   public void setId(Long id) {
     this.id = id;
+  }
+
+  public String getFirstname() {
+    return firstname;
+  }
+
+  public void setFirstname(String firstname) {
+    this.firstname = firstname;
+  }
+
+  public String getLastname() {
+    return lastname;
+  }
+
+  public void setLastname(String lastname) {
+    this.lastname = lastname;
   }
 
   public String getUsername() {
@@ -85,5 +133,21 @@ public class User {
 
   public void setRoles(Set<Role> roles) {
     this.roles = roles;
+  }
+
+  public Project getAffectedProject() {
+    return affectedProject;
+  }
+
+  public void setAffectedProject(Project affectedProject) {
+    this.affectedProject = affectedProject;
+  }
+
+  public List<Task> getTasks() {
+    return tasks;
+  }
+
+  public void setTasks(List<Task> tasks) {
+    this.tasks = tasks;
   }
 }

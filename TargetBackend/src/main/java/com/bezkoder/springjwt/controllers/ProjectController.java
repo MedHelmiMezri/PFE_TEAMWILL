@@ -3,6 +3,7 @@ package com.bezkoder.springjwt.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,23 +22,22 @@ import com.bezkoder.springjwt.services.ProjectService;
 
 
 
-@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin( "http://localhost:3000")
 @RestController
 @RequestMapping("/target")
 public class ProjectController {
 
 
+
 	@Autowired 
-    ProjectService projectservice ; 
-	
-	@CrossOrigin
+    ProjectService projectservice ;
+
 	@PostMapping("/add-project")
 	@ResponseBody
 	public void addProject(@RequestBody Project project) {
 		projectservice.saveProject(project);
 	}
-	
-	@CrossOrigin
+
 	@GetMapping("/list-projects")
 	@ResponseBody
 	public List<Project> listAllProjects() {
@@ -45,25 +45,31 @@ public class ProjectController {
 		return projects ;
 
 	}
-	
-	@CrossOrigin
-	@PostMapping("/detail-project/{id}")
+
+	@GetMapping("/detail-project/{id}")
 	@ResponseBody
 	Project detailProject(@PathVariable("id") int id) {
 	 return projectservice.getProjectById(id);
 	}
-	
-	@CrossOrigin
+
 	@DeleteMapping("/delete-project/{id}")
 	@ResponseBody
 	public void deleteProject(@PathVariable("id") int id) {
 	    projectservice.deleteProject(id);
 	}
 
+	@PostMapping("/members/{id}")
+	public ResponseEntity<String> addMembersToProject(@PathVariable("id") int projectId, @RequestBody List<String> usernames) {
+		try {
+			projectservice.addMembersToProject(projectId, usernames);
+			return ResponseEntity.ok().body("Members added successfully");
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error adding members");
+		}
+	}
 
-	
-	
-	
+
+
 	
 	
 	
