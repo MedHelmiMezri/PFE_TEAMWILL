@@ -1,7 +1,7 @@
 const routes = [
   {
     path: '/',
-    component: () => import('layouts/MainLayout.vue'),
+    component: () => import('layouts/TargetLayout.vue'),
     children: [
       {path: '', component: () => import('pages/Dashboard.vue')},
       {path: '/Dashboard2', component: () => import('pages/Dashboard2.vue')},
@@ -31,6 +31,36 @@ const routes = [
       {path: '/projectlist', component: () => import('pages/projects/ProjectList.vue')} ,
 
       {path: '/addmodule', component: () => import('pages/modules/AddModule.vue')} ,
+
+      {path: '/homeboard', component: () => import('pages/dashboards/TestDashboard.vue')} ,
+      {path: '/capacity', component: () => import('pages/members/Capacity.vue')} ,
+
+
+      {path: '/projectboard', component: () => import('pages/dashboards/ProjectDashboard.vue')} ,
+      {path: '/users', component: () => import('pages/members/UsersList.vue')} ,
+      {path: '/testtest', component: () => import('pages/tasks/AllTasks.vue')},
+      {path: '/library', component: () => import('pages/library/FilesLibrary.vue')},
+      {path: '/filepdf', component: () => import('pages/library/FileTest.vue')}  ,
+      {path: '/taskdetails/:id', component: () => import('pages/tasks/TaskDetails.vue')}  ,
+      {path:'/testform' , component:()=> import ('pages/projects/TestP.vue')} ,
+      {path:'/addtask' , component:()=> import ('pages/tasks/AddTask.vue')} ,
+      {path:'/profilee' , component:()=> import ('pages/members/Profile.vue')} ,
+      {path:'/k-board' , component:()=> import ('pages/kanban/KanbanBoard.vue')} ,
+      {path:'/testkanban' , component:()=> import ('pages/kanban/RealKanban.vue')} ,
+      {path:'/projectdashboard' , component:()=> import ('pages/projects/ProjectDetailsBoard.vue')} ,
+      {path:'/projects' , component:()=> import ('pages/projects/Project.vue')} ,
+      {path:'/home' , component:()=> import ('pages/HomePage.vue')} ,
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -84,6 +114,8 @@ const routes = [
 
   {path: '/register',
    component: () => import('pages/authentication/RegisterTarget.vue')} ,
+   {path: '/log', component: () => import('pages/log.vue')}
+
 
 ]
 

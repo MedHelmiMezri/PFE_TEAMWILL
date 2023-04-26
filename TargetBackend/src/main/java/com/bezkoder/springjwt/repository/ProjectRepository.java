@@ -11,5 +11,6 @@ import com.bezkoder.springjwt.models.Project;
 @Repository 
 public interface ProjectRepository extends JpaRepository<Project, Integer>{
   
-	 
+    Project findByProjectTitle(String projectTtile) ;
+
 }

@@ -1,7 +1,6 @@
 package com.bezkoder.springjwt.services;
 
-import java.time.LocalDate;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,40 +25,37 @@ public class ProjectService {
 	@Autowired
 	UserRepository userRepository ;
 
-
-	public List<Project> listAllProjects() {
-	        return projectrepo.findAll();
-	    }
-	 
-	 public Project getProjectById(Integer id) {
-	        return projectrepo.findById(id).get();
-	    }
-	 
-	  public Project saveProject(Project project) {
-
-		  System.out.println(project.getProjectTitle());
-		  messagingTemplate.convertAndSend("/topic/notifications", project);
-
-		  return projectrepo.save(project);
-	    }
-	  
-	  public void deleteProject(Integer id) {
-	        projectrepo.deleteById(id);
-	    }
-
-
-
-	public void addMembersToProject(int projectId, List<String> usernames) {
-		    Optional<Project> optionalProject = projectrepo.findById(projectId);
-
-			Project project = optionalProject.get();
-			List<User> users = userRepository.findByUsernameIn(usernames);
-		    for ( User user:users ) {
-				user.setAffectedProject(project);
-				project.getMembers().add(user);
-				userRepository.save(user);
-			}
-	         projectrepo.save(project);
+	public List<Project> getAllProjects () {
+		return projectrepo.findAll()  ;
 	}
+
+	public Project addProject(Project project) {
+		projectrepo.save(project) ;
+		return project;
+	}
+
+
+	public Project getProductById(int id) {
+		return projectrepo.findById(id).orElse(null);
+	}
+
+	public void deleteProject(int id ) {
+		projectrepo.deleteById(id);
+	}
+
+
+	public Project addTeamToProject(int projectId, List<String> usernames) throws Exception {
+		Project project = projectrepo.findById(projectId).orElseThrow(() -> new Exception("Project not found"));
+		List<User> team = new ArrayList<>();
+		for (String username : usernames) {
+			Optional<User> userOptional = userRepository.findByUsername(username);
+			userOptional.ifPresent(team::add);
+		}
+		project.setTeam(team);
+		return projectrepo.save(project);
+	}
+
+
+
 
 }

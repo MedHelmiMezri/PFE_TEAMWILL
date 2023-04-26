@@ -3,7 +3,33 @@
     <q-card-section>
       <div class="text-h6 text-grey-8">
         Inline Actions
-        <q-btn label="Add Member" class="float-right text-capitalize text-indigo-8 shadow-3" icon="list"/>
+        <q-btn label="Alert" color="primary" @click="alert = true" class="float-right" />
+        <q-dialog v-model="alert">
+      <q-card>
+        <q-card-section>
+          <div class="text-h6">Alert</div>
+        </q-card-section>
+        
+        <q-card-section class="q-pt-none">
+          <div style="min-width: 250px; max-width: 300px">
+            
+            <q-select
+          filled
+          v-model="modelMultiple"
+          multiple
+          :options="options"
+          use-chips
+          stack-label
+          label="Multiple selection"
+        />
+          </div>
+        </q-card-section>
+
+        <q-card-actions align="right">
+          <q-btn flat label="OK" color="primary" v-close-popup />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
       </div>
     </q-card-section>
     <q-card-section class="q-pa-none">
@@ -35,7 +61,7 @@
 </template>
 
 <script>
-import {defineComponent} from 'vue'
+import {defineComponent,ref} from 'vue'
 
 
 const data = [
@@ -95,6 +121,12 @@ export default defineComponent({
     return {
       data,
       columns,
+      alert: ref(false),
+      modelMultiple: ref(['Facebook']),
+
+      options: [
+        'Google', 'Facebook', 'Twitter', 'Apple', 'Oracle'
+      ]
     }
   }
 })

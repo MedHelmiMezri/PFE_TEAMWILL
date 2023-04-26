@@ -1,6 +1,8 @@
 package com.bezkoder.springjwt.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,7 +31,8 @@ public class User {
 
   private String firstname ;
 
-  private String lastname ;
+  private String lastname
+          ;
   @NotBlank
   @Size(max = 20)
   private String username;
@@ -49,12 +52,7 @@ public class User {
         inverseJoinColumns = @JoinColumn(name = "role_id"))
   private Set<Role> roles = new HashSet<>();
 
-  @JsonBackReference
-  @ManyToOne(fetch = FetchType.LAZY)
-  private Project affectedProject;
 
-  @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-  private List<Task> tasks = new ArrayList<>();
 
 
 
@@ -67,8 +65,8 @@ public class User {
     this.email = email;
     this.password = password;
   }
-  public User(Long id, String firstname, String lastname, String username, String email, String password, Set<Role> roles, Project affectedProject
-  ,List<Task>tasks) {
+  public User(Long id, String firstname, String lastname, String username, String email, String password, Set<Role> roles
+  ) {
     this.id = id;
     this.firstname = firstname;
     this.lastname = lastname;
@@ -76,8 +74,7 @@ public class User {
     this.email = email;
     this.password = password;
     this.roles = roles;
-    this.affectedProject = affectedProject;
-    this.tasks=tasks ;
+
   }
   public Long getId() {
     return id;
@@ -135,19 +132,6 @@ public class User {
     this.roles = roles;
   }
 
-  public Project getAffectedProject() {
-    return affectedProject;
-  }
 
-  public void setAffectedProject(Project affectedProject) {
-    this.affectedProject = affectedProject;
-  }
 
-  public List<Task> getTasks() {
-    return tasks;
-  }
-
-  public void setTasks(List<Task> tasks) {
-    this.tasks = tasks;
-  }
 }

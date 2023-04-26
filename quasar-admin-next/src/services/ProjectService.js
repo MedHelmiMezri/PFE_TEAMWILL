@@ -2,13 +2,13 @@ import axios from 'axios';
 import authHeader from './auth-header';
 
 
-const base_url= "http://localhost:8083/target" ; 
+const base_url= "http://localhost:8083/target" ;
 
 
 class ProjectService {
-  
+
   getAll() {
-    return axios.get(base_url+"/list-projects",{ headers: authHeader() });
+    return axios.get(base_url+"/show-projects",{ headers: authHeader() });
   }
 
   create(data) {

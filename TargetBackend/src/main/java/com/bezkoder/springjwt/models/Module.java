@@ -9,6 +9,7 @@ import javax.persistence.*;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,16 +30,9 @@ public class Module {
 	private int id;
 	
 	
-	private String moduleTtile ; 
+	private String moduleTitle ;
 	
 	private String description;
-	@JsonBackReference
-	@ManyToOne(fetch = FetchType.LAZY)
-	private Project project;
-
-	@JsonManagedReference
-	@OneToMany(mappedBy = "module", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Task>  tasks = new ArrayList<>();
 
 
 }

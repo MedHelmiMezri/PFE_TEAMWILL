@@ -13,14 +13,15 @@
   </ul>
   </nav>
   </div>
-  
+
     <div class="col-md-12">
       <div class="card card-container">
+        <div class="text-h4 text-center text-bold q-pt-xl"> Login to continue</div>
         <q-form class="column" @submit.prevent="handleLogin">
         <q-input v-model="user.username" filled name="username" label="Username" type="text" >
         </q-input>
               <br/>
-  
+
         <q-input v-model="user.password"  filled name="password" label="password" type="password">
         </q-input>
         <br/>
@@ -31,10 +32,10 @@
           size="1em"
         />
         </q-btn>
-  
+
         </q-form>
         <div>
-     
+
         </div>
       </div>
       <center>
@@ -53,7 +54,7 @@ import User from '../../models/user';
 
 export default {
   name: 'Login',
-  
+
   data() {
     return {
       user: new User('', ''),
@@ -61,9 +62,9 @@ export default {
       message: ''
     };
   },
- 
+
   computed: {
-   
+
     loggedIn() {
       return this.$store.state.auth.status.loggedIn;
     }
@@ -91,11 +92,11 @@ export default {
           );
         }
 
-    } , 
+    } ,
   }
-  
-    
-   
+
+
+
   }
 ;
 </script>

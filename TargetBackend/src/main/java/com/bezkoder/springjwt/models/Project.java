@@ -43,13 +43,27 @@ public class Project {
 	private int duration ; 
 	
 	private EProjectStatus projectSatus  = EProjectStatus.OnGoing ;
-	@JsonManagedReference
-	@OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Module> modules = new ArrayList<>();
 
-	@JsonManagedReference
-	@OneToMany(mappedBy = "affectedProject", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<User> members = new ArrayList<>();
-	
-	
+
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "affected_project_id")
+	private List<User> team = new ArrayList<>();
+
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "manager_id")
+	private User manager;
+
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "project_id")
+	private List<Module> modules ;
+
+
+
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "project_id")
+	private List<Task> tasks ;
+
+
+
 }

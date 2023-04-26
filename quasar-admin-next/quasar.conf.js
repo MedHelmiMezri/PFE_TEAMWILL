@@ -24,14 +24,15 @@ module.exports = configure(function (/* ctx */) {
       'axios' ,
       'dhtmlx-gantt',
       'apexcharts' ,
-      'primevue' , 
-      'dicebear'
+      'primevue' ,
+      'dicebear' ,
+      'vuedraggable'
 
     ],
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
     css: [
-      'app.css' 
+      'app.css'
 
     ],
 
@@ -40,6 +41,14 @@ module.exports = configure(function (/* ctx */) {
       // 'ionicons-v4',
       // 'mdi-v5',
       'fontawesome-v5',
+      'material-icons',
+  'mdi-v7',
+  'ionicons-v4', // last webfont was available in v4.6.3
+  'eva-icons',
+  'fontawesome-v6',
+  'themify',
+  'line-awesome',
+  'bootstrap-icons',
       // 'eva-icons',
       // 'themify',
       // 'line-awesome',
@@ -71,8 +80,18 @@ module.exports = configure(function (/* ctx */) {
 
       // https://quasar.dev/quasar-cli/handling-webpack
       // "chain" is a webpack-chain object https://github.com/neutrinojs/webpack-chain
-      chainWebpack (/* chain */) {
-        //
+      chainWebpack (chain) {
+        // Add a loader for PDF files
+        chain.module
+          .rule('pdf')
+          .test(/\.pdf$/)
+          .use('url-loader')
+          .loader('url-loader')
+          .options({
+            limit: 8192,
+            name: 'pdf/[name].[hash:8].[ext]',
+          })
+          .end()
       },
     },
 

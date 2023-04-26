@@ -1,15 +1,26 @@
 <template>
+
     <q-page class="q-pa-sm">
-      <div class="row">
-      <div class="col">
-        <q-btn color="blue" icon="list" label="Dashboard" />
+
+
+
+        <div class="q-pa-md row column items-end">
+    <q-btn id="expand-btn"
+           label="New Topic"
+
+
+           style="width: 200px"
+           outline
+           icon="playlist_add"
+           text-color="black"
+           to="/addtask"
+    />
       </div>
-      
-      </div>
-      
+
       <q-card>
-      
-      <q-card-section class="q-mt-sm bg-light-blue">
+
+      <q-card-section class="q-mt-sm bg-blue-grey-1">
+
         <q-btn  label="Click me" class="float-right text-capitalize text-blue shadow-3" icon="settings">
         <q-menu>
           <q-list dense style="min-width: 100px">
@@ -65,17 +76,17 @@
 
 
         <div class="text-h5 text-weight-bolder ">
-          <q-icon name="style" size="1em" class="mdi-size-l" />
-          Project File 
+          Project File
         </div>
       </q-card-section>
       <q-separator></q-separator>
       <q-list >
         <q-item>
           <q-item-section v-if="project">
+
             <div class="row">
                    <div class="col">
-                    <div class="text-weight-bolder  text-h6">
+                    <div class="text-weight-thin-h5 ">
                         Project Title :
                     </div>
                     <div>
@@ -84,14 +95,14 @@
                     </div>
                     </div>
             <div class="col">
-                    <div class="text-weight-bolder text-h6">
-                        Budget : 
+                    <div class="text-weight-thin-h5">
+                        Budget :
                     </div>
                     <div>
                       {{ project.budget }}
 
                     </div>
-              
+
                       {{ project.moudles }}
             </div>
             </div>
@@ -103,38 +114,38 @@
           <q-item-section>
             <div class="row">
                    <div class="col">
-                    <div class="text-weight-bolder text-h6">
-                        Start Date : 
+                    <div class="text-weight-thin-h5">
+                        Start Date :
                     </div>
                     <div>
                       {{ project.startDate }}
                     </div>
                     </div>
             <div class="col">
-                    <div class="text-weight-bolder text-h6">
-                        Duration : 
+                    <div class="text-weight-thin-h5">
+                        Duration :
                     </div>
                    <div>
                     {{ project.duration }}
                    </div>
-                       
+
             </div>
             </div>
             <q-separator inset="item"/>
             <q-card-section>
               <div class="row">
                 <div class="col">
-                <div class="text-weight-bolder text-h6">
-                        Description : 
+                <div class="text-weight-thin-h5">
+                        Description :
                     </div>
                     <div>
                       <p>{{ project.description }}</p>
                     </div>
-                   
+
               </div>
               </div>
-              
-              
+
+
             </q-card-section>
           </q-item-section>
         </q-item>
@@ -149,14 +160,21 @@
     />
   </div>
     </q-card>
-    <q-card class="q-mt-sm">
+    <q-card class="q-mt-sm q-gutter-lg" >
     <div>
+      <div class="row q-col-gutter-sm q-py-sm">
+      <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
 
-      <table-actions class="q-mt-lg"></table-actions>    </div>
+          </div>
+      <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+test
+      </div>
+
+    </div>    </div>
     </q-card>
     </q-page>
-  
-    
+
+
 </template>
 <script>
 import {defineComponent, defineAsyncComponent} from 'vue';
@@ -183,36 +201,42 @@ export default defineComponent({
             {
               label: 'module 1 ',
               icon: 'list',
-              
+
             },
             {
               label: 'module 1 ',
               icon: 'list',
-              
+
             },
             {
               label: 'module 1 ',
               icon: 'list',
-              
+
             },
             {
               label: 'module 1 ',
               icon: 'list',
-              
+
             },
-           
+
           ]
         }
-      ]
+      ],  onMainClick () {
+        // console.log('Clicked on main button')
+      },
+
+      onItemClick () {
+        // console.log('Clicked on an Item')
+      }
     }
   } ,
   async created(){
     const projectId = this.$route.params.id;
     try {
-      const response = await ProjectService.get(projectId) ; 
+      const response = await ProjectService.get(projectId) ;
 
 
-      
+
       this.project =response.data;
       console.log(response.data) ;
     } catch (error) {

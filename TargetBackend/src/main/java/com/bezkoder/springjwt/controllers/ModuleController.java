@@ -17,22 +17,6 @@ public class ModuleController {
 
     @Autowired
     ModuleService moduleService ;
-    @CrossOrigin
-    @PostMapping("/add-module/{projectId}")
-    public ResponseEntity<String> addModulesToProject(@PathVariable int projectId, @RequestBody List<Module> modules) {
-        moduleService.addModulesToProject(projectId, modules);
-        return ResponseEntity.ok("Modules added to project successfully.");
-    }
-
-
-    @CrossOrigin
-    @GetMapping("/list-modules")
-    @ResponseBody
-    public List<Module> listAllModules() {
-        List<Module> modules = moduleService.listAllModules();
-        return modules ;
-
-    }
 
 
 }

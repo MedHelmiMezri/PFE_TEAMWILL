@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bezkoder.springjwt.models.Project;
 import com.bezkoder.springjwt.services.ProjectService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 
@@ -28,49 +30,45 @@ import com.bezkoder.springjwt.services.ProjectService;
 public class ProjectController {
 
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProjectController.class);
 
 	@Autowired 
     ProjectService projectservice ;
 
-	@PostMapping("/add-project")
-	@ResponseBody
-	public void addProject(@RequestBody Project project) {
-		projectservice.saveProject(project);
-	}
 
-	@GetMapping("/list-projects")
-	@ResponseBody
-	public List<Project> listAllProjects() {
-		List<Project> projects = projectservice.listAllProjects();
-		return projects ;
 
-	}
+    @GetMapping("/show-projects")
+    public List<Project> getAllProjects() {
+        return projectservice.getAllProjects();
+    }
 
-	@GetMapping("/detail-project/{id}")
-	@ResponseBody
-	Project detailProject(@PathVariable("id") int id) {
-	 return projectservice.getProjectById(id);
-	}
 
-	@DeleteMapping("/delete-project/{id}")
-	@ResponseBody
-	public void deleteProject(@PathVariable("id") int id) {
-	    projectservice.deleteProject(id);
-	}
+    @PostMapping("/add-project")
+    public Project saveProjectt(@RequestBody Project project) {
+        return projectservice.addProject(project);
+    }
 
-	@PostMapping("/members/{id}")
-	public ResponseEntity<String> addMembersToProject(@PathVariable("id") int projectId, @RequestBody List<String> usernames) {
-		try {
-			projectservice.addMembersToProject(projectId, usernames);
-			return ResponseEntity.ok().body("Members added successfully");
-		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error adding members");
-		}
-	}
+    @PostMapping("/add-team/{id}")
+    public ResponseEntity<Project> addTeamToProject(@PathVariable(value = "id") int projectId, @RequestBody List<String> usernames) {
+        try {
+            Project project = projectservice.addTeamToProject(projectId, usernames);
+            return ResponseEntity.ok(project);
+        } catch (Exception e) {
+            LOGGER.error("Error occurred while adding team to project: {}", e.getMessage());
+
+            return ResponseEntity.notFound().build();
+        }
+    }
 
 
 
-	
-	
-	
+
+
+
+
+
+
+
+
+
 }
