@@ -57,7 +57,7 @@
             <q-item-section avatar style="min-width:25px">
               <q-icon name="list" class="q-pa-none q-ma-none"/>
             </q-item-section>
-            <q-item-section class="text-h6 text-weight-bolder"></q-item-section>
+            <q-item-section class="text-h6 text-weight-bolder">Backlog</q-item-section>
             <q-item-section avatar>
               <q-icon name="more_vert" class="cursor-pointer">
                 <q-menu transition-show="rotate" transition-hide="rotate">
@@ -111,16 +111,11 @@
               <span class="text-caption text-grey-9 q-ml-xs">
                 #{{element.id}}
 >
-                  <q-icon
-                  filled
-                  size="xs"
-                  name="visibility"
-                  class="float-right text-weight-bolder"
-                  />
-                  <q-btn size="12px" color="red" flat dense round icon="delete"/>
-                  <q-btn size="12px" color="red" flat dense round icon="delete"/>
 
-                <q-badge class="float-right q-my-md" size="md">
+                  <q-btn size="12px"  class="float-right text-weight-bolder" color="red" flat dense round icon="delete"/>
+                  <q-btn size="12px"  class="float-right text-weight-bolder" color="blue-grey" flat dense round icon="open_with"/>
+
+                <q-badge class="float-bottom q-my-md" size="md">
                   affected user
                 </q-badge>
               </span>
@@ -457,15 +452,25 @@
       </q-card>
     </q-dialog>
 <q-dialog v-model="add_new_task">
-<q-card style="width: 400px">
-    <q-bar dense style="height: 15px" class="bg-blue-grey-8">
+<q-card style="width: 1000px ; height:700px">
+    <q-bar dense style="height: 15px" class="bg-light-blue-13">
     </q-bar>
     <q-card-section>
       {{ selectedtask.id }}
+      <center>
+        <div class="text-h6">Task Details</div>
+        <q-linear-progress size="25px" :value="progress1" color="accent">
+      <div class="absolute-full flex flex-center">
+        <q-badge color="white" text-color="accent" :label="progressLabel1" />
+      </div>
+    </q-linear-progress>
+      </center>
       <div class="text-h6">Permissions</div>
     </q-card-section>
 
     <q-card-section class="q-pt-none">
+      <div class="text-h6">Permissions</div>
+       kuhkluhkug
       <q-select
         label="Roles"
         v-model="newRoles"
@@ -483,15 +488,34 @@
         max-values="2"
         hint="Max 2 selections"
         class="q-mb-md">
-
       </q-select>
+      <q-select
+        label="Roles"
+        v-model="newRoles"
+        emit-value
+        map-options
+        outlined
+        required
+        filled
+        dense
+        options-dense
+        multiple
+        counter
+        use-chips
+        stack-label
+        max-values="2"
+        hint="Max 2 selections"
+        class="q-mb-md">
+      </q-select>
+
+
     </q-card-section>
     <q-separator/>
     <q-card-actions align="right">
       <q-btn size="sm"
              id="confirmUpdateRoles"
              label="confirm"
-             color="blue-grey"
+             color="light-blue-13"
              v-close-popup/>
       <q-btn size="sm"
              label="close"

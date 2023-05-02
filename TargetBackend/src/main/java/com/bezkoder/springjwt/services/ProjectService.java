@@ -35,17 +35,13 @@ public class ProjectService {
 	}
 
 
-	public Project getProductById(int id) {
-		return projectrepo.findById(id).orElse(null);
-	}
-
 	public void deleteProject(int id ) {
 		projectrepo.deleteById(id);
 	}
 
 
 	public Project addTeamToProject(int projectId, List<String> usernames) throws Exception {
-		Project project = projectrepo.findById(projectId).orElseThrow(() -> new Exception("Project not found"));
+		Project project = projectrepo.findById(projectId) ;
 		List<User> team = new ArrayList<>();
 		for (String username : usernames) {
 			Optional<User> userOptional = userRepository.findByUsername(username);

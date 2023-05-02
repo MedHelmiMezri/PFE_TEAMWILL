@@ -32,7 +32,7 @@ public class TaskService {
 
     public void addTask (int projectId,Task task ) {
         try {
-            Project project = projectRepository.findById(projectId).orElseThrow(() -> new Exception("Project not found"));
+            Project project = projectRepository.findById(projectId) ;
             project.getTasks().add(task);
             taskrepository.save(task);
             projectRepository.save(project);
@@ -113,9 +113,12 @@ public class TaskService {
 
     public void updateTaskState (int id , String status ) throws Exception {
         Task task = taskrepository.findById(id).orElseThrow(() -> new Exception("Task not found"));
-
-
     }
 
+    public List<Task> getTasksByProjectId(int projectId) {
 
+        Project project = projectRepository.findById(projectId) ;
+
+        return project.getTasks();
+    }
 }

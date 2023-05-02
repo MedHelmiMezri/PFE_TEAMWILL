@@ -10,9 +10,6 @@ class TaskService {
     return axios.get("http://localhost:8083/target/show-tasks",{ headers: authHeader() });
   }
 
-
-
-
 }
 
 export default new TaskService();

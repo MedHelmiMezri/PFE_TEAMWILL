@@ -70,6 +70,12 @@ public class TaskController {
         }
     }
 
+    @GetMapping("/tasks-per-project/{id}")
+    public List<Task> getTasks(@PathVariable int id) {
+        List<Task> tasks = taskservice.getTasksByProjectId(id) ;
+        return tasks ;
+    }
+
 
 
 }

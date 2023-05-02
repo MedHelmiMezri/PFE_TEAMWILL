@@ -55,9 +55,13 @@ public class ProjectController {
             return ResponseEntity.ok(project);
         } catch (Exception e) {
             LOGGER.error("Error occurred while adding team to project: {}", e.getMessage());
-
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @DeleteMapping
+    public void deleteProject(@PathVariable(value="id") int projectId) {
+        projectservice.deleteProject(projectId) ;
     }
 
 

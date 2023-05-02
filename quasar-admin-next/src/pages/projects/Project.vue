@@ -79,7 +79,7 @@
         </q-item>
         <draggable
           class="list-group"
-          :list="task_list"
+          :list="projects"
           v-bind="dragOptions"
           @start="drag = true"
           @end="drag = false"
@@ -93,7 +93,7 @@
               </q-item-section>
 
               <q-item-section style="font-size: 18px;" class="text-grey-9">
-                Project Name
+                {{ element.projectTitle}}
               </q-item-section>
 
               <q-item-section class="col-1">
@@ -117,10 +117,10 @@
                   <q-btn class="q-mr-sm" size="12px" dense filled round color="blue" icon="message"/>
                   <q-btn class="q-mr-sm" size="12px" dense filled round color="orange" icon="flag"/>
                   <q-btn class="q-mr-lg" size="12px" dense filled round color="grey" icon="attachment"/>
-                  <span style="width:125px" class="inline-block text-grey-9"><span v-if="element.due_date">Due {{element.due_date}}</span></span>
+                  <span style="width:125px" class="inline-block text-grey-9"><span v-if="element.due_date"></span></span>
                   <q-btn size="12px" color="red" flat dense round icon="delete"/>
                   <q-btn size="12px" color="green" flat dense round icon="done"/>
-                  <q-btn size="12px" flat dense round icon="more_vert"/>
+                  <q-btn size="12px" color="blue" flat dense round icon="view_kanban"/>
                 </div>
               </q-item-section>
             </q-item>
@@ -130,7 +130,7 @@
         </draggable>
       </div>
     </div>
-    <q-dialog v-model="add_new" position="right">
+    <q-dialog v-model="add_new" position="right"  >
       <q-card style="width: 600px ; height:1000px">
         <q-card-section>
           <div class="text-h6">Add New Task</div>
@@ -169,6 +169,7 @@
 </template>
 
 <script>
+    import ProjectService from "../../services/ProjectService";
     import draggable from "vuedraggable";
     import {Notify} from "quasar";
     export default {
@@ -177,6 +178,8 @@
 
         data() {
             return {
+              projects: [],
+
                 search: "",
                 task_index: {
                     to_do_index: null,
@@ -344,7 +347,7 @@
         },
         created() {
             this.load_tasks();
-        },
+            this.fetchProject() ;       },
         computed: {
             dragOptions() {
                 return {
@@ -356,6 +359,7 @@
             },
         },
         methods: {
+
             addNewTask() {
                 let max_id = Math.max.apply(
                     Math,
@@ -398,6 +402,16 @@
                 self.task_list = JSON.parse(JSON.stringify(self.task_to_do.concat(self.task_in_progress).concat(self.task_test).concat(self.task_done).sort(function () {
                     return 0.5 - Math.random()
                 })));
+            }
+            ,
+          async  fetchProject() {
+              try {
+                       const response = await ProjectService.getAll();
+                       this.projects = response.data;
+                       window.console.log(this.projects) ;
+             }       catch (error) {
+                      console.error(error);
+                }
             }
         }
     };

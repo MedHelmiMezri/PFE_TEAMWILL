@@ -53,17 +53,51 @@
         <q-card-section class="q-pa-none q-mt-sm">
           <div class="row text-center q-ma-xs bg-white q-pa-sm">
             <div class="col-md-3 col-sm-12 col-xs-12">
-              <q-btn color="primary" label="Primary" />
-              <br>
+              <div class="column" style="height: 150px">
+      <div class="col">
+        <div>
+          Project Title :
+        </div>
+        <div class="text-h6">
+          test test
+        </div>
+      </div>
+      <div class="col">
+         <div>
+          Project budget :
+         </div>
+         <div class="text-h6">
+          test test
+         </div>
+      </div>
+    </div>
             </div>
+
+
+
             <div class="col-md-3 col-sm-12 col-xs-12">
-              <div class="q-pa-md">
-    <q-btn-group spread>
-      <q-btn color="purple" label="First" icon="timeline" />
-      <q-btn color="purple" label="Second" icon="visibility" />
-    </q-btn-group>
-  </div>
+              <div class="column" style="height: 150px">
+      <div class="col">
+        <div>
+          Project description :
+        </div>
+        <div class="text-h6">
+          test test
+        </div>
+      </div>
+      <div class="col">
+        <div>
+         Project duration :
+        </div>
+        <div class="text-h6">
+         test test
+        </div>
+      </div>
+    </div>
             </div>
+
+            <q-separator vertical />
+
             <div class="col-md-3 col-sm-12 col-xs-12">
               <h5 class="q-pa-none q-ma-none text-grey-9">Progress</h5>
               <q-circular-progress
@@ -80,7 +114,8 @@
               </q-circular-progress>
               <br>
             </div>
-            <div class="col-md-3 col-sm-12 col-xs-12" style="background-color: #16B6E0;border-radius: 7px;">
+
+            <div class="col-md-3 col-sm-12 col-xs-12" style="background-color: #16B6E0;border-radius: 7px; width:300px">
               <h5 class="q-pa-none q-ma-none text-grey-9">Project</h5>
               <h5 class="q-pa-none q-ma-none text-grey-9">Launch Date</h5>
               <q-icon size="56px" color="white" name="fas fa-flag-checkered" class="q-pa-none q-ma-none"/>
@@ -94,7 +129,7 @@
     </div>
     <div class="row q-pa-xs q-col-gutter-sm">
       <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="max-height: 500px">
-        <q-card flat bordered class="">
+        <q-card flat bordered >
           <q-card-section class="row">
             <div class="text-h6 col-12">Project Budget
             </div>
@@ -102,64 +137,65 @@
 
           <q-separator inset></q-separator>
 
-          <q-card-section style="height: 282px !important;">
-            <div class="row">
+          <q-card-section style="height: 400px !important;">
 
-            </div>
+             <work-load></work-load>
+
           </q-card-section>
         </q-card>
       </div>
       <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-        <q-card flat bordered>
+        <q-card flat bordered style="height:470px">
           <q-card-section >
-            <div class="text-h6 col-12">Deadlines
+            <div class="text-h6 col-12">Team
             </div>
           </q-card-section>
 
           <q-separator inset></q-separator>
 
           <q-card-section style="height: 282px !important;">
-            <q-table
-              :data="data"
-              :columns="columns"
-              row-key="name"
-              :filter="filter"
-              :pagination.sync="pagination"
-            >
-              <template v-slot:body-cell-progress="props">
-                <q-td :props="props">
-                  <div>
-                    <q-linear-progress :label="props.value" rounded size="15px" :value="props.value" color="green"
-                                       class="q-mt-sm"/>
-                  </div>
-                  <div class="my-table-details">
-                    {{ props.row.details }}
-                  </div>
-                </q-td>
-              </template>
-            </q-table>
+            <q-list dense bordered class="rounded-borders cursor-move"
+                style="border-left: 5px solid grey !important"  >
+            <q-item class="bg-white">
+              <q-item-section avatar>
+                <q-icon name="task" color="black" size="34px"/>
+              </q-item-section>
+
+              <q-item-section style="font-size: 18px;" class="text-grey-9">
+                Project Name
+              </q-item-section>
+
+
+              <q-item-section class="col-2">
+                <div class="q-pa-sm q-gutter-md">
+                  <q-badge
+                    filled
+                    class="q-pa-sm text-bold"
+                    style="font-size: 15px"
+                  >project status
+                  </q-badge>
+                </div>
+              </q-item-section>
+            </q-item>
+          </q-list>
           </q-card-section>
         </q-card>
       </div>
       <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="max-height: 500px">
-        <q-card flat bordered class="">
+        <q-card flat bordered class="" style="height:500px">
           <q-card-section class="row">
-            <div class="text-h6 col-12">Workload
+            <div class="text-h6 col-12">Task Distribution :
             </div>
           </q-card-section>
-
           <q-separator inset></q-separator>
-
           <q-card-section style="height: 282px !important;">
-            <div id="chart">
-            <apexchart  style = "width :400px" type="donut" :options="chartOptions" :series="series"></apexchart>
-            </div>
+            <task-distribution></task-distribution>
           </q-card-section>
         </q-card>
       </div>
       <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-        <q-card flat bordered>
-          <q-card-section class="row">
+        <q-card flat bordered style="height:500px">
+          <q-card-section class="row" >
             <div class="text-h6 col-12">Deadlines
             </div>
           </q-card-section>
@@ -194,11 +230,16 @@
     import Vue from "vue";
     import draggable from "vuedraggable";
     import {Notify} from "quasar";
+    import TaskDistribution from "./TaskDistribution.vue" ;
+    import WorkLoad from "./WorkLoad.vue" ;
 
 
     export default {
         name: "Home",
-
+        components :{
+         TaskDistribution ,
+         WorkLoad
+        } ,
         data() {
             return {
                 progress: 0.75,
