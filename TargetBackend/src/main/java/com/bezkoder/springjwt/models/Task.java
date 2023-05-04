@@ -39,9 +39,9 @@ public class Task {
 		
 	private int taskduration  ; 
 	
-	private EPriorityTask priorityTask  ; 
+	private EPriorityTask priorityTask = EPriorityTask.Normal  ;
 	
-	private EtaskStatus taskStatus = EtaskStatus.Pending ;
+	private EtaskStatus taskStatus = EtaskStatus.backlog ;
 
 
 	@ManyToOne

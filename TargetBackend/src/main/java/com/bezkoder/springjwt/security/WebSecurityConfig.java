@@ -88,7 +88,7 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
     http.cors().and().csrf().disable()
         .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-        .authorizeRequests().antMatchers("/v3/api-docs/**","/api/auth/**","/websocket/**","/v2/api-docs", "/swagger-ui/**","/configuration/ui", "/swagger-resources/**", "/configuration/**", "/swagger-ui/index.html", "/webjars/**","/reporting/**").permitAll()
+        .authorizeRequests().antMatchers("/v3/api-docs/**","/api/auth/**","/target/updatetaskstatus/**","/websocket/**","/v2/api-docs", "/swagger-ui/**","/configuration/ui", "/swagger-resources/**", "/configuration/**", "/swagger-ui/index.html", "/webjars/**","/reporting/**").permitAll()
         .antMatchers("/api/test/**","/pdf/**").permitAll()
         .anyRequest().authenticated();
     

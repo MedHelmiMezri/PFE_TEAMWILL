@@ -120,7 +120,7 @@
                   <span style="width:125px" class="inline-block text-grey-9"><span v-if="element.due_date"></span></span>
                   <q-btn size="12px" color="red" flat dense round icon="delete"/>
                   <q-btn size="12px" color="green" flat dense round icon="done"/>
-                  <q-btn size="12px" color="blue" flat dense round icon="view_kanban"/>
+                  <q-btn size="12px" @click="gotoprojectkanban(element.id)" color="blue" flat dense round icon="view_kanban"/>
                 </div>
               </q-item-section>
             </q-item>
@@ -412,6 +412,10 @@
              }       catch (error) {
                       console.error(error);
                 }
+            } ,
+            gotoprojectkanban(id) {
+              this.$router.push({ path: '/k-board/' + id });
+
             }
         }
     };

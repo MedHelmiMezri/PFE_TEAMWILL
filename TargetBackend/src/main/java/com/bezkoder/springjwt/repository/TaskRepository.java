@@ -15,6 +15,7 @@ import java.util.List;
 public interface TaskRepository extends JpaRepository<Task, Integer>{
     int countByTaskStatus(EtaskStatus taskStatus);
 
+    Task findById(int id) ;
 
 
 }

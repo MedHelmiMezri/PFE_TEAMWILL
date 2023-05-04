@@ -47,11 +47,8 @@ public class TaskService {
     }
 
 
-
-
-
     public Task adduserToTask(int taskId, String username) throws Exception {
-        Task task = taskrepository.findById(taskId).orElseThrow(() -> new Exception("Task not found"));
+        Task task = taskrepository.findById(taskId) ;
         User user = null;
         try {
             user = userrepository.findUsername(username);
@@ -72,9 +69,9 @@ public class TaskService {
 
 
     public Task resolveTask(int id ) throws Exception {
-        Task task = taskrepository.findById(id).orElseThrow(() -> new Exception("Task not found"));
+        Task task = taskrepository.findById(id);
         try {
-            task.setTaskStatus(EtaskStatus.Resolved);
+            task.setTaskStatus(EtaskStatus.backlog);
             taskrepository.save(task);
             return task ;
         }catch(Exception e ) {
@@ -83,9 +80,9 @@ public class TaskService {
     }
 
     public Task closeTask(int id ) throws Exception {
-        Task task = taskrepository.findById(id).orElseThrow(() -> new Exception("Task not found"));
+        Task task = taskrepository.findById(id) ;
         try {
-            task.setTaskStatus(EtaskStatus.Closed);
+            task.setTaskStatus(EtaskStatus.backlog);
             taskrepository.save(task);
             return task ;
         }catch(Exception e ) {
@@ -112,7 +109,7 @@ public class TaskService {
 
 
     public void updateTaskState (int id , String status ) throws Exception {
-        Task task = taskrepository.findById(id).orElseThrow(() -> new Exception("Task not found"));
+        Task task = taskrepository.findById(id);
     }
 
     public List<Task> getTasksByProjectId(int projectId) {
@@ -120,5 +117,32 @@ public class TaskService {
         Project project = projectRepository.findById(projectId) ;
 
         return project.getTasks();
+    }
+     public void deleteTask(int id ) {
+        taskrepository.deleteById(id);
+     }
+
+    public void updatestatus(int id , String status ) throws Exception {
+
+        Task task = taskrepository.findById(id);
+
+        try {
+            switch(status){
+                case "backlog" :
+                    task.setTaskStatus(EtaskStatus.backlog) ;
+                    break ;
+                case "inprogress" :
+                    task.setTaskStatus(EtaskStatus.inprogress);
+                    break ;
+                case "test" :
+                    task.setTaskStatus(EtaskStatus.test);
+                    break ;
+                case "done" :
+                    task.setTaskStatus(EtaskStatus.done); }
+            taskrepository.save(task);
+
+        }catch(Exception e ) {
+            throw e  ;
+        }
     }
 }

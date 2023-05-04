@@ -77,5 +77,16 @@ public class TaskController {
     }
 
 
+    @DeleteMapping("/delete-task/{id}")
+    public void deleteT (@PathVariable int id) {
+       taskservice.deleteTask(id) ;
+       System.out.println("task deleted") ;
+    }
+
+
+    @PutMapping("/updatetaskstatus/{id}/{status}")
+    public void  updatetaskstatus(@PathVariable int id , @PathVariable String status) throws Exception {
+            taskservice.updatestatus(id , status) ;
+    }
 
 }

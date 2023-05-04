@@ -1,9 +1,9 @@
 const routes = [
   {
-    path: '/admin',
+    path: '/',
     component: () => import('layouts/TargetLayout.vue'),
     children: [
-      {path: '', component: () => import('pages/Dashboard.vue')},
+      {path: '', component: () => import('pages/HomePage.vue')},
       {path: '/Dashboard2', component: () => import('pages/Dashboard2.vue')},
       {path: '/Profile', component: () => import('pages/UserProfile.vue')},
       {path: '/Map', component: () => import('pages/Map.vue')},
@@ -45,7 +45,7 @@ const routes = [
       {path:'/testform' , component:()=> import ('pages/projects/TestP.vue')} ,
       {path:'/addtask' , component:()=> import ('pages/tasks/AddTask.vue')} ,
       {path:'/profilee' , component:()=> import ('pages/members/Profile.vue')} ,
-      {path:'/k-board' , component:()=> import ('pages/kanban/KanbanBoard.vue')} ,
+      {path:'/k-board/:id' , component:()=> import ('pages/kanban/KanbanBoard.vue')} ,
       {path:'/testkanban' , component:()=> import ('pages/kanban/RealKanban.vue')} ,
       {path:'/projectdashboard' , component:()=> import ('pages/projects/ProjectDetailsBoard.vue')} ,
       {path:'/projects' , component:()=> import ('pages/projects/Project.vue')} ,

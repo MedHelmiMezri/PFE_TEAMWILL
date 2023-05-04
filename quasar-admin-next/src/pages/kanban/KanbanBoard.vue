@@ -78,66 +78,65 @@
           </q-item>
       <draggable
         class="list-group"
-        :list="task_backlog"
+        :list="taskbacklog"
         group="done"
         v-bind="dragOptions"
         @change="onChange"
         @drop = "dropHandlebacklog"
         itemKey="id"
       >
-        <template #item="{ element, index }">
+      <template #item="{ element, index }">
 
-          <q-card
-              square
-              flat
-              bordered
-              class="box-shadow cursor-move bg-white q-mt-xs list-group-item border-backlog"
-              :style="element.task_type=='bug'?'border-left: 5px solid red !important':''"
-              @click="showDetails(element)"
-            >
-            <q-avatar
-                class="q-pa-none"
-                size="25px"
-                dense
-                :class="element.task_type=='bug'? 'bug bottom-right-radius':'feature-to-do bottom-right-radius'"
-                text-color="white"
-              >
-                <q-icon
-                  filled
-                  size="xs"
-                  :name="element.task_type=='bug'? 'bug_report':'assignment'"
-                />
-              </q-avatar>
-              <span class="text-caption text-grey-9 q-ml-xs">
-                #{{element.id}}
->
+<q-card
+    square
+    flat
+    bordered
+    class="box-shadow cursor-move bg-white q-mt-xs list-group-item border-test"
+    @click="showDetails(element)"
+  >
+  <q-avatar
+      class="q-pa-none feature-test bottom-right-radius"
+      size="25px"
+      dense
+      text-color="white"
+    >
+      <q-icon
+        filled
+        size="xs"
+        name ="assignment"
+      />
+    </q-avatar>
+    <span class="text-caption text-grey-9 q-ml-xs">
+      #{{element.id}}
+      <q-icon
+        filled
+        size="xs"
+        name="close"
+        class="float-right text-weight-bolder"
+        />
+      <q-badge class="float-right q-my-md" size="md">
+        affected user
+      </q-badge>
+    </span>
 
-                  <q-btn size="12px"  class="float-right text-weight-bolder" color="red" flat dense round icon="delete"/>
-                  <q-btn size="12px"  class="float-right text-weight-bolder" color="blue-grey" flat dense round icon="open_with"/>
-
-                <q-badge class="float-bottom q-my-md" size="md">
-                  affected user
-                </q-badge>
-              </span>
-
-            <q-card-section class="q-pt-sm">
-                <div class="row items-center no-wrap">
-                  <div class="col">
-                    <div>{{element.task_title}}</div>
-                  </div>
-                  <div class="col">
+  <q-card-section class="q-pt-sm">
+      <div class="row items-center no-wrap">
+        <div class="col">
+          <div>{{element.titreTache}}</div>
+        </div>
+        <div class="col">
           <div>start date</div>
         </div>
-                </div>
-              </q-card-section>            <q-badge
-                outline
-                class="q-mx-xs text-bold tag-badge"
-                color="red"
-              >  priority
-              </q-badge>
-         </q-card>
+      </div>
+    </q-card-section>            <q-badge
+      outline
+      class="q-mx-xs text-bold tag-badge"
+      color="red"
+    >  priority
+    </q-badge>
+</q-card>
 
-        </template>
+</template>
       </draggable>
     </div>
     </div>
@@ -169,7 +168,7 @@
           </q-item>
       <draggable
         class="list-group"
-        :list="task_inprogress"
+        :list="taskinprogress"
         group="done"
         v-bind="dragOptions"
         @change="onChange"
@@ -183,21 +182,18 @@
     flat
     bordered
     class="box-shadow cursor-move bg-white q-mt-xs list-group-item border-in-progress"
-    :style="element.task_type=='bug'?'border-left: 5px solid red !important':''"
     @click="showDetails(element)"
   >
   <q-avatar
-      class="q-pa-none"
+      class="q-pa-none feature-in-progress bottom-right-radius"
       size="25px"
       dense
-      :class="element.task_type=='bug'? 'bug bottom-right-radius':'feature-in-progress bottom-right-radius'"
       text-color="white"
     >
       <q-icon
         filled
         size="xs"
-        :name="element.task_type=='bug'? 'bug_report':'assignment'"
-      />
+         name="assignment"      />
     </q-avatar>
     <span class="text-caption text-grey-9 q-ml-xs">
       #{{element.id}}
@@ -215,7 +211,7 @@
   <q-card-section class="q-pt-sm">
       <div class="row items-center no-wrap">
         <div class="col">
-          <div>{{element.task_title}}</div>
+          <div>{{element.titreTache}}</div>
         </div>
         <div class="col">
           <div>start date</div>
@@ -260,7 +256,7 @@
           </q-item>
       <draggable
         class="list-group"
-        :list="task_testing"
+        :list="tasktest"
         group="done"
         v-bind="dragOptions"
         @change="onChange"
@@ -274,20 +270,18 @@
     flat
     bordered
     class="box-shadow cursor-move bg-white q-mt-xs list-group-item border-test"
-    :style="element.task_type=='bug'?'border-left: 5px solid red !important':''"
     @click="showDetails(element)"
   >
   <q-avatar
-      class="q-pa-none"
+      class="q-pa-none feature-test bottom-right-radius"
       size="25px"
       dense
-      :class="element.task_type=='bug'? 'bug bottom-right-radius':'feature-test bottom-right-radius'"
       text-color="white"
     >
       <q-icon
         filled
         size="xs"
-        :name="element.task_type=='bug'? 'bug_report':'assignment'"
+        name ="assignment"
       />
     </q-avatar>
     <span class="text-caption text-grey-9 q-ml-xs">
@@ -306,7 +300,7 @@
   <q-card-section class="q-pt-sm">
       <div class="row items-center no-wrap">
         <div class="col">
-          <div>{{element.task_title}}</div>
+          <div>{{element.titreTache}}</div>
         </div>
         <div class="col">
           <div>start date</div>
@@ -351,7 +345,7 @@
           </q-item>
       <draggable
         class="list-group"
-        :list="task_done"
+        :list="taskdone"
         group="done"
         v-bind="dragOptions"
         @change="onChange"
@@ -365,20 +359,18 @@
     flat
     bordered
     class="box-shadow cursor-move bg-white q-mt-xs list-group-item border-done"
-    :style="element.task_type=='bug'?'border-left: 5px solid red !important':''"
     @click="showDetails(element)"
   >
   <q-avatar
-      class="q-pa-none"
+      class="q-pa-none feature-done bottom-right-radius"
       size="25px"
       dense
-      :class="element.task_type=='bug'? 'bug bottom-right-radius':'feature-done bottom-right-radius'"
       text-color="white"
     >
       <q-icon
         filled
         size="xs"
-        :name="element.task_type=='bug'? 'bug_report':'assignment'"
+         name = "assignment"
       />
     </q-avatar>
     <span class="text-caption text-grey-9 q-ml-xs">
@@ -397,7 +389,7 @@
   <q-card-section class="q-pt-sm">
       <div class="row items-center no-wrap">
         <div class="col">
-          <div>{{element.task_title}}</div>
+          <div>{{element.titreTache}}</div>
         </div>
         <div class="col">
           <div>start date</div>
@@ -530,6 +522,9 @@
 import draggable from "vuedraggable";
 import { watchEffect } from 'vue';
 
+import TaskService from "../../services/TaskService";
+
+
 export default {
   name: "two-lists",
   display: "Two Lists",
@@ -564,12 +559,37 @@ export default {
         { task_title: "John", id: 16, task_type:"design", priority: "test1" , task_status:"done"},
       ],
 
+      taskbacklog :[] ,
+      taskinprogress:[],
+      tasktest :[] ,
+      taskdone:[],
+      tasks:[] ,
+
       element_id : null ,
       element_status : '' ,
       add_new_task :false ,
       selectedtask : null
     };
   },
+
+  async created(){
+
+      const projectId = this.$route.params.id;
+      const response = await TaskService.gettaskperProject(projectId) ;
+      this.tasks =response.data;
+      this.taskbacklog = this.tasks.filter((task)=> task.taskStatus ==='backlog')
+      this.taskinprogress = this.tasks.filter((task) => task.taskStatus === 'inprogress');
+      this.tasktest= this.tasks.filter((task) => task.taskStatus === 'test');
+      this.taskdone = this.tasks.filter((task)=> task.taskStatus ==='done')
+      window.console.log(this.taskbacklog) ;
+      window.console.log(this.taskinprogress) ;
+      window.console.log(this.tasktest) ;
+      window.console.log(this.taskdone) ;
+      console.log(response.data) ;
+
+
+  } ,
+
   computed: {
             dragOptions() {
                 return {
@@ -580,7 +600,9 @@ export default {
                 };
             }
         },
+
   methods: {
+
     test1Method() {
       window.console.log("this is test1")
     } ,
@@ -622,7 +644,12 @@ export default {
     return this.element_status ;
     } ,
     updateList() {
-      window.console.log(`I will move the element with ID ${this.element_id} to ${this.element_status}`);
+    //  window.console.log(`I will move the element with ID ${this.element_id} to ${this.element_status}`);
+
+      TaskService.updatetaskStatus(this.element_id , this.element_status ) ;
+      console.log("started") ;
+      console.log(this.element_id ) ;
+      console.log(this.element_status) ;
       this.element_id = null ;
       this.element_status = '' ;
     }

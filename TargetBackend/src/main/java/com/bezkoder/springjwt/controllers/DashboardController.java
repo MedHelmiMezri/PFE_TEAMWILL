@@ -22,9 +22,9 @@ public class DashboardController {
     @GetMapping("/task-counts")
     public Map<String, Integer> getTaskCounts() {
         Map<String, Integer> counts = new HashMap<>();
-        counts.put("Pending", taskRepository.countByTaskStatus(EtaskStatus.Pending));
-        counts.put("Resolved", taskRepository.countByTaskStatus(EtaskStatus.Resolved));
-        counts.put("Closed", taskRepository.countByTaskStatus(EtaskStatus.Closed));
+        counts.put("Pending", taskRepository.countByTaskStatus(EtaskStatus.backlog));
+        counts.put("Resolved", taskRepository.countByTaskStatus(EtaskStatus.backlog));
+        counts.put("Closed", taskRepository.countByTaskStatus(EtaskStatus.backlog));
         return counts;
     }
 }
