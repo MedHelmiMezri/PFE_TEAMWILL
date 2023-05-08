@@ -23,7 +23,7 @@
 
             <q-input style="max-width: 1000px;" class="full-width" dense filled v-model="project.projectTitle" label="Project Name" hint="Name and surname" lazy-rules :rules="[val => val && val.length > 0 || 'Please type something']" />
             <q-input style="max-width: 1000px;" class="full-width" dense filled v-model="project.budget" type="number" label="Budget" lazy-rules :rules="[val => val !== null && val !== '' || 'Please type your principal', val => val > 0 || 'Please type a real principal']" />
-            <q-input style="max-width: 1000px;" class="full-width" dense v-model="project.startDate" filled type="date" lazy-rules :rules="[val => val !== null && val !== '' || 'Please type your regular investment', val => val > 0 || 'Please type a real regular investment']" />
+            <q-input style="max-width: 1000px;" class="full-width" dense v-model="project.startDate" filled type="date"  />
             <q-input style="max-width: 1000px;" class="full-width" v-model="project.description" filled label="Desciption" hint="Name and surname" lazy-rules :rules="[val => val && val.length > 0 || 'Please type something']" />
             <q-input style="max-width: 1000px;" class="full-width" dense v-model="project.duration" filled type="number" label="Duration" lazy-rules :rules="[val => val !== null && val !== '' || 'Please type your principal', val => val > 0 || 'Please type a real principal']" />
             <div class="q-mt-md">
@@ -91,7 +91,8 @@ export default {
 
       };
 
-         ProjectService.create(data)
+         ProjectService.create(data) ;
+         console.log("hello")
 
         .then(response => {
           this.project.id = response.data.id;

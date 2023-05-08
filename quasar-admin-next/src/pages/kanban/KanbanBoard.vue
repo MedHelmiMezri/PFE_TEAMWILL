@@ -88,14 +88,15 @@
       <template #item="{ element, index }">
 
 <q-card
+    style="height:140px"
     square
     flat
     bordered
-    class="box-shadow cursor-move bg-white q-mt-xs list-group-item border-test"
+    class="box-shadow cursor-move bg-white q-mt-xs list-group-item border-backlog"
     @click="showDetails(element)"
   >
   <q-avatar
-      class="q-pa-none feature-test bottom-right-radius"
+      class="q-pa-none feature-to-do bottom-right-radius"
       size="25px"
       dense
       text-color="white"
@@ -114,6 +115,13 @@
         name="close"
         class="float-right text-weight-bolder"
         />
+        <q-btn size="12px" color="green" flat dense round icon="done"/>
+
+        <q-btn size="12px" color="green" flat dense round icon="done"/>
+
+        <q-btn size="12px" color="green" flat dense round icon="done"/>
+
+
       <q-badge class="float-right q-my-md" size="md">
         affected user
       </q-badge>
@@ -177,7 +185,7 @@
       >
       <template #item="{ element, index }">
 
-<q-card
+<q-card  style="height:140px"
     square
     flat
     bordered
@@ -265,7 +273,7 @@
       >
       <template #item="{ element, index }">
 
-<q-card
+<q-card  style="height:140px"
     square
     flat
     bordered
@@ -354,7 +362,7 @@
       >
       <template #item="{ element, index }">
 
-<q-card
+<q-card  style="height:140px"
     square
     flat
     bordered
@@ -443,11 +451,33 @@
 
       </q-card>
     </q-dialog>
-<q-dialog v-model="add_new_task">
+<q-dialog v-model="add_new_task"       full-width>
 <q-card style="width: 1000px ; height:700px">
     <q-bar dense style="height: 15px" class="bg-light-blue-13">
+
     </q-bar>
     <q-card-section>
+      <div class="row">
+      <div class="col">
+        .col
+      </div>
+      <div class="col">
+        .col
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        .col
+      </div>
+      <div class="col">
+        .col
+      </div>
+      <div class="col">
+        .col
+      </div>
+    </div>
+
       {{ selectedtask.id }}
       <center>
         <div class="text-h6">Task Details</div>
@@ -534,30 +564,7 @@ export default {
   },
   data() {
     return {
-      task_backlog: [
-        { task_title: "John", id: 1, task_type:"feature", priority: "test1" , task_status:"backlog"},
-        { task_title: "John", id: 2, task_type:"bug", priority: "test1" , task_status:"backlog"},
-        { task_title: "John", id: 3, task_type:"bug", priority: "test1" , task_status:"backlog"},
-        { task_title: "John", id: 4, task_type:"feature", priority: "test1" , task_status:"backlog"},
-      ],
-      task_inprogress: [
-        { task_title: "John", id: 5, task_type:"design", priority: "test1" , task_status:"inprogress"},
-        { task_title: "John", id: 6, task_type:"feature", priority: "test1" , task_status:"inprogress"},
-        { task_title: "John", id: 7, task_type:"feature", priority: "test1" , task_status:"inprogress"},
-        { task_title: "John", id: 8, task_type:"design", priority: "test1" , task_status:"inprogress"},
-      ],
-      task_testing: [
-        { task_title: "John", id: 9, task_type:"feature", priority: "test1" , task_status:"testing"},
-        { task_title: "John", id: 10, task_type:"bug", priority: "test1" , task_status:"testing"},
-        { task_title: "John", id: 11, task_type:"feature", priority: "test1" , task_status:"testing"},
-        { task_title: "John", id: 12, task_type:"feature", priority: "test1" , task_status:"testing"},
-      ],
-      task_done: [
-        { task_title: "John", id: 13, task_type:"feature", priority: "test1" , task_status:"done"},
-        { task_title: "John", id: 14, task_type:"design", priority: "test1" , task_status:"done"},
-        { task_title: "John", id: 15, task_type:"feature", priority: "test1" , task_status:"done"},
-        { task_title: "John", id: 16, task_type:"design", priority: "test1" , task_status:"done"},
-      ],
+
 
       taskbacklog :[] ,
       taskinprogress:[],
@@ -646,7 +653,7 @@ export default {
     updateList() {
     //  window.console.log(`I will move the element with ID ${this.element_id} to ${this.element_status}`);
 
-      TaskService.updatetaskStatus(this.element_id , this.element_status ) ;
+      TaskService.updatetaskStatus(this.element_id , this.element_status )   ;
       console.log("started") ;
       console.log(this.element_id ) ;
       console.log(this.element_status) ;

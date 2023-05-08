@@ -234,9 +234,6 @@ export default defineComponent({
     const projectId = this.$route.params.id;
     try {
       const response = await ProjectService.get(projectId) ;
-
-
-
       this.project =response.data;
       console.log(response.data) ;
     } catch (error) {

@@ -51,19 +51,6 @@ const routes = [
       {path:'/projects' , component:()=> import ('pages/projects/Project.vue')} ,
       {path:'/home' , component:()=> import ('pages/HomePage.vue')} ,
 
-
-
-
-
-
-
-
-
-
-
-
-
-
       // {path: '/Taskboard', component: () => import('pages/TaskBoard.vue')},
     ]
   },

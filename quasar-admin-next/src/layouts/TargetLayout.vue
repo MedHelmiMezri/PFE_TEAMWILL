@@ -62,24 +62,35 @@
             Home
           </q-item-section>
         </q-item>
-        <q-item active-class="tab-active" to="/k-board" exact class="q-ma-none navigation-item" clickable
+        <q-item active-class="tab-active" to="/testgantt" exact class="q-ma-none navigation-item" clickable
                 v-ripple>
           <q-item-section avatar>
-            <q-icon name="dashboard"/>
+            <q-icon name="account_tree"/>
           </q-item-section>
 
           <q-item-section>
             Dashboard - Grid
           </q-item-section>
         </q-item>
-        <q-item active-class="tab-active" to="/dashboard-list" exact class="q-ma-none navigation-item" clickable
+
+        <q-item active-class="tab-active" to="/projects" exact class="q-ma-none navigation-item" clickable
                 v-ripple>
           <q-item-section avatar>
-            <q-icon name="view_headline"/>
+            <q-icon name="work"/>
           </q-item-section>
 
           <q-item-section>
-            Dashboard - List
+            Projects
+          </q-item-section>
+        </q-item>
+        <q-item active-class="tab-active" to="/dashboard-list" exact class="q-ma-none navigation-item" clickable
+                v-ripple>
+          <q-item-section avatar>
+            <q-icon name="manage_accounts"/>
+          </q-item-section>
+
+          <q-item-section>
+            Team
           </q-item-section>
         </q-item>
       </q-list>

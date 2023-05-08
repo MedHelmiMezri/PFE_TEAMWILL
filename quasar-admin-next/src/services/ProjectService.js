@@ -14,6 +14,7 @@ class ProjectService {
   create(data) {
     return axios.post(base_url+"/add-project", data ,{ headers: authHeader() });
   }
+
   get(id) {
     return axios.get(base_url+`/detail-project/${id}`,{ headers: authHeader() });
   }

@@ -131,22 +131,20 @@
       </div>
     </div>
     <q-dialog v-model="add_new" position="right"  >
-      <q-card style="width: 600px ; height:1000px">
+      <q-card style="width: 600px ; height:600px">
         <q-card-section>
-          <div class="text-h6">Add New Task</div>
+          <div class="text-h6">Add New Project :</div>
         </q-card-section>
         <q-separator/>
         <q-card-section class="row items-center no-wrap">
           <q-form class="q-gutter-md full-width">
-            <q-input filled v-model="task_item.task_title" label="First Name" class="q-ml-none"/>
 
-            <q-input filled v-model="task_item.task_type" label="Last Name" class="q-ml-none">salem</q-input>
 
-            <q-input filled v-model="task_item.task_title" label="First Name" class="q-ml-none"/>
-
-            <q-input filled v-model="task_item.task_title" label="First Name" class="q-ml-none"/>
-
-            <q-input filled v-model="task_item.task_title" label="First Name" class="q-ml-none"/>
+            <q-input style="max-width: 1000px;" class="full-width" dense filled v-model="project.projectTitle" label="Project Name" hint="Name and surname" lazy-rules :rules="[val => val && val.length > 0 || 'Please type something']" />
+            <q-input style="max-width: 1000px;" class="full-width" dense filled v-model="project.budget" type="number" label="Budget" lazy-rules :rules="[val => val !== null && val !== '' || 'Please type your principal', val => val > 0 || 'Please type a real principal']" />
+            <q-input style="max-width: 1000px;" class="full-width" dense v-model="project.startDate" filled type="date" lazy-rules :rules="[val => val !== null && val !== '' || 'Please type your regular investment', val => val > 0 || 'Please type a real regular investment']" />
+            <q-input style="max-width: 1000px;" class="full-width" v-model="project.description" filled label="Desciption" hint="Name and surname" lazy-rules :rules="[val => val && val.length > 0 || 'Please type something']" />
+            <q-input style="max-width: 1000px;" class="full-width" dense v-model="project.duration" filled type="number" label="Duration" lazy-rules :rules="[val => val !== null && val !== '' || 'Please type your principal', val => val > 0 || 'Please type a real principal']" />
 
 
             <div class="text-right justify-end">
@@ -172,6 +170,7 @@
     import ProjectService from "../../services/ProjectService";
     import draggable from "vuedraggable";
     import {Notify} from "quasar";
+
     export default {
         name: "Projects",
 
@@ -179,7 +178,15 @@
         data() {
             return {
               projects: [],
+              project: {
 
+             projectTitle: "",
+             budget :0 ,
+             startDate : "",
+             description: "",
+             duration : 0
+
+              },
                 search: "",
                 task_index: {
                     to_do_index: null,
@@ -359,6 +366,29 @@
             },
         },
         methods: {
+          saveProject() {
+      var data = {
+        projectTitle: this.project.projectTitle ,
+        budget :this.project.budget ,
+        startDate :this.project.startDate,
+        description: this.project.description,
+        duration : this.project.duration,
+
+      };
+
+         ProjectService.create(data)
+
+        .then(response => {
+          this.project.id = response.data.id;
+          console.log(response.data);
+          this.submitted = true;
+        //  this.$router.push({ path: '/projects'});
+
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    },
 
             addNewTask() {
                 let max_id = Math.max.apply(

@@ -8,7 +8,7 @@ const base_url= "http://localhost:8083/target" ;
 class TaskService {
 
   getAll() {
-    return axios.get("http://localhost:8083/target/show-tasks");
+    return axios.get("http://localhost:8083/target/show-tasks", { headers: authHeader() });
   }
 
   gettaskperProject(id) {
@@ -16,7 +16,7 @@ class TaskService {
   }
 
   updatetaskStatus(id , status) {
-    return axios.put(base_url+`/updatetaskstatus/${id}/${status}` ) ;
+    return axios.put(base_url+`/updatetaskstatus/${id}/${status}` , { headers: authHeader() }) ;
   }
 
 

@@ -8,14 +8,23 @@ export default {
 
 
   mounted: function () {
-    
-  gantt.config.date_format = "%Y-%m-%d %H:%i:%s";
+
+ gantt.config.date_format = "%Y-%m-%d %H:%i:%s";
+
+
+gantt.plugins({
+		quick_info: true  ,
+
+	});
+
+
+
 
   gantt.init(this.$refs.gantt_here);
-  
+
   gantt.load("http://localhost:1337/data");
   const dp = new gantt.dataProcessor("http://localhost:1337/data");
-  console.log(gantt) ; 
+  console.log(gantt) ;
   dp.init(gantt);
   dp.setTransactionMode("REST");
   }
@@ -23,6 +32,7 @@ export default {
 </script>
 <style>
     @import "~dhtmlx-gantt/codebase/dhtmlxgantt.css";
+
 </style>
 
 
