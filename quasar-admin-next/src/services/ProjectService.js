@@ -19,6 +19,10 @@ class ProjectService {
     return axios.get(base_url+`/detail-project/${id}`,{ headers: authHeader() });
   }
 
+  delete(id) {
+    return axios.delete(base_url+`/delete-project/${id}` , {headers : authHeader()});
+  }
+
 }
 
 

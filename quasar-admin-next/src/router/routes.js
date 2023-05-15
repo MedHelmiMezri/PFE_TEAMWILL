@@ -50,6 +50,8 @@ const routes = [
       {path:'/projectdashboard' , component:()=> import ('pages/projects/ProjectDetailsBoard.vue')} ,
       {path:'/projects' , component:()=> import ('pages/projects/Project.vue')} ,
       {path:'/home' , component:()=> import ('pages/HomePage.vue')} ,
+      {path:'/calendar' , component:()=> import ('pages/calendar/MonthView.vue')} ,
+
 
       // {path: '/Taskboard', component: () => import('pages/TaskBoard.vue')},
     ]

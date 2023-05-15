@@ -147,8 +147,12 @@
       <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
         <q-card flat bordered style="height:470px">
           <q-card-section >
-            <div class="text-h6 col-12">Team
+            <div class="text-h6 col-12 " >Team
+              <q-btn  label="Add Members" class="float-right  col-12 text-capitalize text-blue shadow-3" @click="showDialog()"  icon="settings"></q-btn>
             </div>
+
+
+
           </q-card-section>
 
           <q-separator inset></q-separator>
@@ -223,6 +227,45 @@
         </q-card>
       </div>
     </div>
+
+    <q-dialog v-model="affect_users" >
+<q-card style="width: 500px ; height:250px">
+    <q-bar dense style="height: 15px" class="bg-light-blue-13">
+
+    </q-bar>
+
+
+    <q-card-section class="q-pt-none">
+      <br/>
+
+      <div class="text-h6">Affect Task Owner :</div>
+    <br/>
+    <br/>
+    <q-select
+          filled
+          v-model="modelMultiple"
+          multiple
+          :options="options"
+          use-chips
+          stack-label
+          label="Multiple selection"
+        />
+    </q-card-section>
+    <q-separator/>
+    <q-card-actions align="right">
+      <q-btn size="sm"
+             id="confirmUpdateRoles"
+             label="confirm"
+             color="light-blue-13"
+             v-close-popup
+             />
+      <q-btn size="sm"
+             label="close"
+             color="grey"
+             v-close-popup/>
+    </q-card-actions>
+  </q-card>
+</q-dialog>
   </q-page>
 </template>
 
@@ -244,6 +287,11 @@
             return {
                 progress: 0.75,
                 filter: '',
+                affect_users : false ,
+                modelMultiple :[],
+            options: [
+                  'Google', 'Facebook', 'Twitter', 'Apple', 'Oracle'
+             ] ,
 
           series: [44, 55, 41, 17, 15],
           chartOptions: {
@@ -378,7 +426,13 @@
                 }
 
             }
+        } ,
+        methods :{
+          showDialog() {
+          this.affect_users = true ;
         }
+        }
+
     }
 </script>
 

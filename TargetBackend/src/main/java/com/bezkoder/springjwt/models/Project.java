@@ -45,12 +45,12 @@ public class Project {
 	private EProjectStatus projectSatus  = EProjectStatus.OnGoing ;
 
 
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany
 	@JoinColumn(name = "affected_project_id")
 	private List<User> team = new ArrayList<>();
 
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne
 	@JoinColumn(name = "manager_id")
 	private User manager;
 

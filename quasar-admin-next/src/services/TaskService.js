@@ -19,7 +19,18 @@ class TaskService {
     return axios.put(base_url+`/updatetaskstatus/${id}/${status}` , { headers: authHeader() }) ;
   }
 
+  addTaskinProject( id , data) {
+    return axios.post(base_url+`/add-task/${id}`, data , { headers: authHeader() } )
+  }
 
+  usernames () {
+    return axios.get("http://localhost:8083/target/usernames" , { headers : authHeader()}  )
+  }
+
+
+  affectOwner (id , username) {
+    return axios.post(base_url+`/affect-task/${id}/${username}` ,{ headers : authHeader()})
+  }
 }
 
 export default new TaskService();

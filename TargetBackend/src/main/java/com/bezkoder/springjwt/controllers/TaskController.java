@@ -3,6 +3,8 @@ package com.bezkoder.springjwt.controllers;
 
 
 import com.bezkoder.springjwt.models.Task;
+import com.bezkoder.springjwt.models.User;
+import com.bezkoder.springjwt.repository.UserRepository;
 import com.bezkoder.springjwt.services.TaskService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +27,9 @@ public class TaskController {
     @Autowired
     TaskService taskservice ;
 
+
+    @Autowired
+    UserRepository userRepository ;
     private static final Logger LOGGER = LoggerFactory.getLogger(ProjectController.class);
 
 
@@ -37,15 +43,14 @@ public class TaskController {
         taskservice.addTask(taskId , task ) ;
     }
 
-    @PostMapping("/affect-task/{id}")
-    public ResponseEntity<Task> addTaskToUser(@PathVariable(value = "id") int taskId, @RequestParam String username) {
+    @PostMapping("/affect-task/{id}/{username}")
+    public ResponseEntity<Task> addTaskToUser(@PathVariable(value = "id") int taskId, @PathVariable String username) {
         try {
             Task task = taskservice.adduserToTask(taskId , username);
             return ResponseEntity.ok(task);
         } catch (Exception e) {
             LOGGER.error("Error occurred while adding team to project: {}", e.getMessage());
-
-            return ResponseEntity.notFound().build();
+             return ResponseEntity.notFound().build();
         }
     }
 
@@ -87,6 +92,14 @@ public class TaskController {
     @PutMapping("/updatetaskstatus/{id}/{status}")
     public void  updatetaskstatus(@PathVariable int id , @PathVariable String status) throws Exception {
             taskservice.updatestatus(id , status) ;
+    }
+
+    @GetMapping("/usernames")
+    public List<String> getUsernames() {
+        List<User> users = userRepository.findAll();
+        return users.stream()
+                .map(User::getUsername)
+                .collect(Collectors.toList());
     }
 
 }

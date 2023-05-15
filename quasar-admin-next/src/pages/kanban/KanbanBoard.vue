@@ -8,7 +8,7 @@
           no-wrap
           icon="add"
           no-caps
-          color="green"
+          color="blue"
           label="Add Task"
           class="q-mt-sm q-ml-sm q-pr-sm bg-white"
           @click="add_new = true"
@@ -93,7 +93,7 @@
     flat
     bordered
     class="box-shadow cursor-move bg-white q-mt-xs list-group-item border-backlog"
-    @click="showDetails(element)"
+
   >
   <q-avatar
       class="q-pa-none feature-to-do bottom-right-radius"
@@ -115,25 +115,27 @@
         name="close"
         class="float-right text-weight-bolder"
         />
-        <q-btn size="12px" color="green" flat dense round icon="done"/>
+        <q-btn size="12px" color="black"     @click="affectDialog(element)" flat dense round icon="people"/>
 
-        <q-btn size="12px" color="green" flat dense round icon="done"/>
-
-        <q-btn size="12px" color="green" flat dense round icon="done"/>
+        <q-btn size="12px" color="black"     @click="taskDetailsdialog(element)" flat dense round icon="settings"/>
 
 
-      <q-badge class="float-right q-my-md" size="md">
-        affected user
-      </q-badge>
+
+
+
+
+
     </span>
 
   <q-card-section class="q-pt-sm">
       <div class="row items-center no-wrap">
         <div class="col">
           <div>{{element.titreTache}}</div>
+
         </div>
         <div class="col">
           <div>start date</div>
+
         </div>
       </div>
     </q-card-section>            <q-badge
@@ -416,42 +418,8 @@
     </div>
     </div>
   </div>
-  <q-dialog v-model="add_new" position="right">
-      <q-card style="width: 600px ; height:1000px">
-        <q-card-section>
-          <div class="text-h6">Add New Task</div>
-        </q-card-section>
-        <q-separator/>
-        <q-card-section class="row items-center no-wrap">
-          <q-form class="q-gutter-md full-width">
-            <q-input filled v-model="task_item.task_title" label="First Name" class="q-ml-none"/>
 
-            <q-input filled v-model="task_item.task_type" label="Last Name" class="q-ml-none"/>
-
-            <q-input filled v-model="task_item.task_title" label="First Name" class="q-ml-none"/>
-
-            <q-input filled v-model="task_item.task_title" label="First Name" class="q-ml-none"/>
-
-            <q-input filled v-model="task_item.task_title" label="First Name" class="q-ml-none"/>
-
-
-            <div class="text-right justify-end">
-              <q-btn @click="add_new=false" label="Cancel" type="submit" color="primary"/>
-              <q-btn
-                @click="addNewTask"
-                style="width: 90px"
-                class="q-ml-sm"
-                label="Add"
-                type="submit"
-                color="blue"
-              />
-            </div>
-          </q-form>
-        </q-card-section>
-
-      </q-card>
-    </q-dialog>
-<q-dialog v-model="add_new_task"       full-width>
+<q-dialog v-model="add_new_task" full-width>
 <q-card style="width: 1000px ; height:700px">
     <q-bar dense style="height: 15px" class="bg-light-blue-13">
 
@@ -546,11 +514,186 @@
     </q-card-actions>
   </q-card>
 </q-dialog>
+<q-dialog v-model="add_new" position="right"  >
+      <q-card style="width: 600px ; height:600px">
+        <q-card-section>
+          <div class="text-h6">Add New Task :</div>
+        </q-card-section>
+        <q-separator/>
+        <q-card-section class="row items-center no-wrap">
+          <q-form class="q-gutter-md full-width">
+            <q-input style="max-width: 1000px;" clearable class="full-width"  filled v-model="task.titreTache" color="blue" label="Task Title" >
+              <template v-slot:prepend>
+               <q-icon name="list_alt" />
+             </template>
+            </q-input>
+
+            <q-select style="max-width: 1000px;" class="full-width" filled  v-model="task.typeTask" :options="type_options"  color="blue" label="Type Task" >
+             <template v-slot:prepend>
+               <q-icon name="description" />
+             </template>
+            </q-select>
+            <q-input style="max-width: 1000px;" class="full-width" filled v-model="task.description" color="blue" label="Description"  >
+              <template v-slot:prepend>
+               <q-icon name="article" />
+             </template>
+            </q-input>
+            <q-input style="max-width: 1000px;" class="full-width"  filled  v-model="task.starstDate" color="blue"  hint="Start Date" type="date"  >
+              <template v-slot:prepend>
+               <q-icon name="event" />
+             </template>
+            </q-input>
+            <q-input style="max-width: 1000px;" class="full-width"  filled  type="number" v-model="task.taskDuration" color="blue"  label="Duration" >
+               <template v-slot:prepend>
+               <q-icon name="timer" />
+             </template>
+            </q-input>
+            <q-select style="max-width: 1000px;" clearable class="full-width" filled  v-model="task.priorityTask" :options="priority_options"  color="blue" label="Type Task" >
+              <template v-slot:prepend>
+               <q-icon name="low_priority" />
+             </template>
+            </q-select>
+            <div class="text-right justify-end">
+              <q-btn @click="add_new=false" label="Cancel" type="submit" color="primary"/>
+              <q-btn
+                style="width: 90px"
+                class="q-ml-sm"
+                label="Add"
+                type="submit"
+                color="blue"
+                @click="saveTask()"
+              />
+            </div>
+          </q-form>
+        </q-card-section>
+
+      </q-card>
+    </q-dialog>
+    <q-dialog v-model="affect_user" >
+<q-card style="width: 500px ; height:250px">
+    <q-bar dense style="height: 15px" class="bg-light-blue-13">
+
+    </q-bar>
+
+
+    <q-card-section class="q-pt-none">
+      <br/>
+
+      <div class="text-h6">Affect Task Owner :</div>
+    <br/>
+    <br/>
+    <q-select style="max-width: 1000px;" class="full-width" filled  v-model="taskowner" :options="usernames"  color="blue" label="Type Task" >
+             <template v-slot:prepend>
+               <q-icon name="people" />
+             </template>
+            </q-select>
+    </q-card-section>
+    <q-separator/>
+    <q-card-actions align="right">
+      <q-btn size="sm"
+             id="confirmUpdateRoles"
+             label="confirm"
+             color="light-blue-13"
+             v-close-popup
+             @click="affectation(selectedtask.id)"/>
+      <q-btn size="sm"
+             label="close"
+             color="grey"
+             v-close-popup/>
+    </q-card-actions>
+  </q-card>
+</q-dialog>
+
+<q-dialog v-model="add_new" position="right"  >
+      <q-card style="width: 600px ; height:600px">
+        <q-card-section>
+          <div class="text-h6">Add New Task :</div>
+        </q-card-section>
+        <q-separator/>
+        <q-card-section class="row items-center no-wrap">
+          <q-form class="q-gutter-md full-width">
+            <q-input style="max-width: 1000px;" clearable class="full-width"  filled v-model="task.titreTache" color="blue" label="Task Title" >
+              <template v-slot:prepend>
+               <q-icon name="list_alt" />
+             </template>
+            </q-input>
+
+            <q-select style="max-width: 1000px;" class="full-width" filled  v-model="task.typeTask" :options="type_options"  color="blue" label="Type Task" >
+             <template v-slot:prepend>
+               <q-icon name="description" />
+             </template>
+            </q-select>
+            <q-input style="max-width: 1000px;" class="full-width" filled v-model="task.description" color="blue" label="Description"  >
+              <template v-slot:prepend>
+               <q-icon name="article" />
+             </template>
+            </q-input>
+            <q-input style="max-width: 1000px;" class="full-width"  filled  v-model="task.starstDate" color="blue"  hint="Start Date" type="date"  >
+              <template v-slot:prepend>
+               <q-icon name="event" />
+             </template>
+            </q-input>
+            <q-input style="max-width: 1000px;" class="full-width"  filled  type="number" v-model="task.taskDuration" color="blue"  label="Duration" >
+               <template v-slot:prepend>
+               <q-icon name="timer" />
+             </template>
+            </q-input>
+            <q-select style="max-width: 1000px;" clearable class="full-width" filled  v-model="task.priorityTask" :options="priority_options"  color="blue" label="Type Task" >
+              <template v-slot:prepend>
+               <q-icon name="low_priority" />
+             </template>
+            </q-select>
+            <div class="text-right justify-end">
+              <q-btn @click="add_new=false" label="Cancel" type="submit" color="primary"/>
+              <q-btn
+                style="width: 90px"
+                class="q-ml-sm"
+                label="Add"
+                type="submit"
+                color="blue"
+                @click="saveTask()"
+              />
+            </div>
+          </q-form>
+        </q-card-section>
+
+      </q-card>
+    </q-dialog>
+    <q-dialog v-model="details" >
+        <q-card style="width: 500px ; height:250px">
+        <q-bar dense style="height: 15px" class="bg-light-blue-13">
+        </q-bar>
+
+
+        <q-card-section class="q-pt-none">
+           hello hello
+          {{ selectedTask.id}}
+          {{ selectedTask.affectedUser.username }}
+
+        </q-card-section>
+        <q-separator/>
+        <q-card-actions align="right">
+        <q-btn size="sm"
+             id="confirmUpdateRoles"
+             label="confirm"
+             color="light-blue-13"
+             v-close-popup
+          />
+        <q-btn size="sm"
+             label="close"
+             color="grey"
+             v-close-popup/>
+        </q-card-actions>
+        </q-card>
+   </q-dialog>
+
 </template>
 
 <script>
 import draggable from "vuedraggable";
 import { watchEffect } from 'vue';
+import axios from 'axios';
+
 
 import TaskService from "../../services/TaskService";
 
@@ -571,11 +714,28 @@ export default {
       tasktest :[] ,
       taskdone:[],
       tasks:[] ,
-
+      task: {
+       titreTache: "",
+       typeTask :"" ,
+       description: "",
+       starstDate : "",
+       taskDuration : 0 ,
+       priorityTask :""
+       } ,
       element_id : null ,
       element_status : '' ,
       add_new_task :false ,
-      selectedtask : null
+      add_new :false ,
+      affect_user :false ,
+      details : false ,
+      selectedtask : null ,
+      type_options :[
+      'Development', 'Design' , 'Integration'  , 'Support'
+      ] ,
+      priority_options :[
+      'Normal' , 'Urgent' , 'Critical'      ] ,
+      usernames :[] ,
+      taskowner:null
     };
   },
 
@@ -593,6 +753,7 @@ export default {
       window.console.log(this.tasktest) ;
       window.console.log(this.taskdone) ;
       console.log(response.data) ;
+
 
 
   } ,
@@ -640,6 +801,17 @@ export default {
       this.add_new_task = true;
       console.log(this.selectedtask.id)
     },
+    affectDialog(task) {
+      this.selectedtask = task ;
+      this.affect_user = true ;
+      console.log(this.selectedtask.id);
+    },
+
+    taskDetailsdialog(task) {
+      this.selectedTask = task ;
+      this.details = true ;
+
+    } ,
 
     dropHandledone () {
     this.element_status = "done" ;
@@ -659,7 +831,57 @@ export default {
       console.log(this.element_status) ;
       this.element_id = null ;
       this.element_status = '' ;
-    }
+    } ,
+    saveTask() {
+      var data = {
+       titreTache: this.task.titreTache,
+       typeTask :this.task.typeTask,
+       description: this.task.description,
+       starstDate : this.task.starstDate,
+       taskDuration : this.task.taskDuration ,
+       priorityTask : this.task.priorityTask
+
+      };
+      const projectId = this.$route.params.id;
+         TaskService.addTaskinProject(projectId,data)
+        .then(response => {
+          this.task.id = response.data.id;
+          console.log(response.data);
+          this.submitted = true;
+          this.$router.push({ path: `/k-board/${projectId}`});
+
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    },
+    affectation(taskId) {
+      window.console.log(taskId) ;
+      window.console.log("affectation") ;
+      if (this.taskowner !== '') {
+        console.log(this.taskowner); // or assign it to another variable
+      } else {
+        // Handle the case when no task owner is selected
+        console.log('Please select a task owner.');
+      }
+
+      TaskService.affectOwner(taskId , this.taskowner)
+
+
+     } ,
+
+
+    fetchUsernames() {
+       TaskService.usernames()
+        .then(response => {
+        this.usernames = response.data;
+        console.log(this.usernames);
+        console.log("It's working");
+        })
+        .catch(error => {
+          console.error(error);
+         });
+        }
   } ,
   mounted() {
     watchEffect(() => {
@@ -667,6 +889,10 @@ export default {
         this.updateList() ;
       }
     });
+
+    this.fetchUsernames() ;
+
+
   }
 
 };

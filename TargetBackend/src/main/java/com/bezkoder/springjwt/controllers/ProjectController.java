@@ -59,19 +59,10 @@ public class ProjectController {
         }
     }
 
-    @DeleteMapping
+    @DeleteMapping("/delete-project/{id}")
     public void deleteProject(@PathVariable(value="id") int projectId) {
         projectservice.deleteProject(projectId) ;
     }
-
-
-
-
-
-
-
-
-
 
 
 
